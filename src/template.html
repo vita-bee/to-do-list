@@ -25,18 +25,18 @@
                             <input type="date" id="due_date" name="due_date" required>
                         </div>
                         <div class='form-row'>
-                            <label for="prioritySelect">Priority Level:</label>
-                            <select id="prioritySelect">
+                            <label for="task_priority_select">Priority Level:</label>
+                            <select id="task_priority_select" name="task_priority_select">
                                 <option value="Low">Low</option>
-                                <option value="Medium" selected>Medium</option>
+                                <option value="Normal" selected>Normal</option>
                                 <option value="High">High</option>
                             </select>
                         </div>                      
                         <div class='form-row'>
-                            <label for="task_list">Task List/Category:</label>
-                            <select id="task_list_select">
-                                <option value="inbox">Inbox</option>
-                                <option value="add-new">➕ Add New...</option>
+                            <label for="task_project">Project Bin:</label>
+                            <select id="task_project_select" name="task_project_select">
+                                <option value="inbox" selected>Inbox</option>
+                                <option value="add-new">➕ add new project bin...</option>
                             </select>
                         </div>
                         
@@ -116,18 +116,18 @@
                         </div>
                         <div class="dayCell">
                             <p class="dayNum">1</p>
-                            <div class="cellTasksContainer">
-                                <div class="cellTaskItemContainer">
+                            <div class="dayTasksContainer">
+                                <div class="taskItemContainer">
                                     <p class="taskTitle">this is task title</p>
                                     <p class="taskListName">project1</p>
                                     <p class="taskDescrip">must use thsi sepcial steps for us involved</p>
                                 </div>
-                                <div class="cellTaskItemContainer">
+                                <div class="taskItemContainer">
                                     <p class="taskTitle">this is task title</p>
                                     <p class="taskListName"></p>
                                     <p class="taskDescrip">must use thsi sepcial steps for us involved</p>
                                 </div>
-                                <div class="cellTaskItemContainer">
+                                <div class="taskItemContainer">
                                     <p class="taskTitle">this is task title</p>
                                     <p class="taskListName">project3</p>
                                     <p class="taskDescrip">must use thsi sepcial steps for us involved</p>
@@ -167,7 +167,7 @@
                 </div>
             </div>
 
-            <footer>footer</footer>
+            <footer>Odin Project: To Do App</footer>
         </div>
     
     </div>
