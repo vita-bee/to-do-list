@@ -3,6 +3,7 @@ import "./styles.css";
 import { format, addDays } from 'date-fns';
 import { PubSub } from './js/pubsub.js';
 import { taskHandler } from './js/taskHandler.js'
+import { renderMonthView } from "./js/monthView.js";
 
 console.log("hello");
 const today = new Date();
@@ -27,8 +28,11 @@ function handleEvent(event) {
     console.log('form submit occurred:', event.type);
     event.preventDefault();
     PubSub.publish('form.submitted', {formData: new FormData(event.target)});
+    const form = document.getElementById('addTaskForm');
+    form.reset();
   }
 }
 
 taskHandler.init();
+renderMonthView.init();
 
