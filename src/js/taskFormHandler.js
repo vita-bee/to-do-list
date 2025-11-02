@@ -8,7 +8,6 @@ export const taskFormHandler = (function() {
     console.log('task handler INIT');
     PubSub.subscribe('form.submitted', addNewTask);
     PubSub.subscribe('taskItemContainer.clicked', editTask);
-    PubSub.subscribe('project.added', addNewProject);
   }
   
   function task(id, title, dueDate, priority, project, descrip, is_done) {    
@@ -34,6 +33,7 @@ export const taskFormHandler = (function() {
     const newTask = new task(id, title, dueDate, priority, project, descrip, is_done);
     taskArr.push(newTask);
     console.log("newly created task:", taskArr[taskArr.length-1]);
+    PubSub.publish('tasks.updated', [...taskArr]); // publish copy of array
   }
 
   function markTaskDone({taskId}){

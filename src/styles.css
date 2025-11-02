@@ -314,6 +314,7 @@ p.dayNum {
   cursor: pointer;
   text-align: left;
   padding: 2px;
+  margin: 2px;
 }
 
 p.taskTitle{
@@ -323,7 +324,7 @@ p.taskTitle{
   font-weight:500; 
   color: black
 }
-p.taskListName{
+p.taskProjectName{
   grid-row: 1/2; 
   grid-column:2/3;
   font-size: 6px; 

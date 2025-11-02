@@ -48,6 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
   taskFormHandler.init();
   renderMonthView.init();
   projectModalHandler.init();
-  projectData.init(['Default Inbox']);
+  projectData.init(['Inbox']);
   projectSelectorHandler.init();
 });
