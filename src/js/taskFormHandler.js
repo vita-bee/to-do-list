@@ -1,12 +1,14 @@
 import { PubSub } from './pubsub.js';
 
-export const taskHandler = (function() {
+export const taskFormHandler = (function() {
   const taskArr = []; 
+  const projectArr = [];
 
   function init() {
     console.log('task handler INIT');
     PubSub.subscribe('form.submitted', addNewTask);
     PubSub.subscribe('taskItemContainer.clicked', editTask);
+    PubSub.subscribe('project.added', addNewProject);
   }
   
   function task(id, title, dueDate, priority, project, descrip, is_done) {    
