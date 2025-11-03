@@ -29,6 +29,14 @@ function handleEvent(event) {
       console.log("task item container was clicked, task id is:" , taskItem.id);
       PubSub.publish("taskItemContainer.clicked", taskItem.id);
     }
+    if (backArrow){
+      console.log("backArrow was clicked");
+      PubSub.publish("backArrow.clicked", {});
+    }
+    if (forwardArrow){
+      console.log("forwardArrow was clicked");
+      PubSub.publish("forwardArrow.clicked", {});
+    }
   }
   if (event.type === "submit" && event.target.matches("#addTaskForm")) {
     console.log('form submit occurred:', event.type);

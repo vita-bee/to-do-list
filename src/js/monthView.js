@@ -12,7 +12,30 @@ export const renderMonthView = (function() {
     currentMonth = now.getMonth(); // 0 = Jan, 1 = Feb, etc.
     renderMonthGrid(currentMonth, currentYear);
     PubSub.subscribe('tasks.updated', renderTasks);
+    PubSub.subscribe('backArrow.clicked', renderPreviousMonth);
+    PubSub.subscribe('forwardArrow.clicked', renderNextMonth);
   }
+
+  function renderPreviousMonth() {
+    if (currentMonth === 0) {
+      currentMonth = 11;
+      currentYear = currentYear - 1;
+    } else {
+      currentMonth = currentMonth - 1;
+    }
+    renderMonthGrid(currentMonth, currentYear);
+  }
+
+  function renderNextMonth() {
+    if (currentMonth === 11) {
+      currentMonth = 0;
+      currentYear = currentYear + 1;
+    } else {
+      currentMonth = currentMonth + 1;
+    }
+    renderMonthGrid(currentMonth, currentYear);
+  }
+
 
   function parseLocalDate(dateStr) {
     const [year, month, day] = dateStr.split('-').map(Number);
@@ -84,6 +107,11 @@ export const renderMonthView = (function() {
 
     console.log("rendering month grid");
     const viewContainer = document.getElementById("viewContainer");
+    
+    //first clear the current  view
+    while (viewContainer.firstChild) {
+      viewContainer.removeChild(viewContainer.firstChild);
+    }
 
     const monthContainer = document.createElement("div");
     monthContainer.id = "monthContainer";
@@ -94,7 +122,7 @@ export const renderMonthView = (function() {
     backArrow.id = "backArrow";
     const monthNameDiv = document.createElement("div");
     monthNameDiv.id = "monthNameDiv";
-    monthNameDiv.textContent = monthName;
+    monthNameDiv.textContent = `${monthName}  ${year}`;
     const forwardArrow = document.createElement("div");
     forwardArrow.id = "forwardArrow";
     monthHeader.appendChild(backArrow);
