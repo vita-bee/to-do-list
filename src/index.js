@@ -23,9 +23,11 @@ function handleEvent(event) {
   if (event.type === "click") {
     console.log("click occurred");
     const taskItem = event.target.closest(".taskItemContainer");
+    const backArrow = event.target.matches("#backArrow");
+    const forwardArrow = event.target.matches("#forwardArrow");
     if (taskItem) {
-      console.log("task item container was clicked");
-      PubSub.publish("taskItemContainer.clicked", { id: taskItem.id });
+      console.log("task item container was clicked, task id is:" , taskItem.id);
+      PubSub.publish("taskItemContainer.clicked", taskItem.id);
     }
   }
   if (event.type === "submit" && event.target.matches("#addTaskForm")) {

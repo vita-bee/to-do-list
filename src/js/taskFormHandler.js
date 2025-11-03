@@ -36,18 +36,18 @@ export const taskFormHandler = (function() {
     PubSub.publish('tasks.updated', [...taskArr]); // publish copy of array
   }
 
-  function markTaskDone({taskId}){
+  function markTaskDone(taskId){
     let taskIndex = taskArr.findIndex(task => task.id === taskId);
     taskArr[taskIndex].markDone;
     console.log("task marked done is:", taskArr[taskIndex]);
   }
 
-  function editTask({taskId}){
+  function editTask(taskId){
     let taskIndex = taskArr.findIndex(task => task.id === taskId);
     console.log("task to edit:", taskArr[taskIndex]);
   }
 
-  function deleteTask({taskId}){
+  function deleteTask(taskId){
     let taskIndex = taskArr.findIndex(task => task.id === taskId);
     console.log("index to remove:", taskIndex);
     if (taskIndex !== -1) {

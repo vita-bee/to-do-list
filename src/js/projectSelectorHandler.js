@@ -29,6 +29,11 @@ export const projectSelectorHandler = (function() {
     addNew.value = 'addNew';
     addNew.textContent = '➕Add new project';
     select.appendChild(addNew);
+
+    const lastProject = projectArr[projectArr.length - 1];
+    if (lastProject) {
+      select.value = lastProject;
+    }
   }
 
   return { init };

@@ -3,16 +3,14 @@ import { format, addDays } from 'date-fns';
 import { PubSub } from './pubsub.js';
 
 export const renderMonthView = (function() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth(); // 0 = Jan, 1 = Feb, etc.
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    console.log("days in month:", daysInMonth);
-    const currentMonthName = now.toLocaleString('default', { month: 'long' });
-    console.log("current month:", currentMonthName); 
+    let currentYear;
+    let currentMonth;
 
   function init() {
-    renderMonthGrid();
+    const now = new Date();
+    currentYear = now.getFullYear();
+    currentMonth = now.getMonth(); // 0 = Jan, 1 = Feb, etc.
+    renderMonthGrid(currentMonth, currentYear);
     PubSub.subscribe('tasks.updated', renderTasks);
   }
 
@@ -22,8 +20,7 @@ export const renderMonthView = (function() {
   }
 
   function renderTasks(taskArr) {
-
-    document.querySelectorAll('.taskItemContainer').forEach(el => el.remove()); // clear all tasks in month
+    document.querySelectorAll('.taskItemContainer').forEach(element => element.remove()); // clear all tasks in month
     taskArr.forEach(task => {
       const taskDate = parseLocalDate(task.dueDate); //have to parse date due to time zone issues
       const taskDay = taskDate.getDate();
@@ -46,7 +43,11 @@ export const renderMonthView = (function() {
         const taskItemContainer = document.createElement('div');
         taskItemContainer.classList.add('taskItemContainer');
         taskItemContainer.id = task.id;
-
+        if (task.priority === "High") {
+          taskItemContainer.classList.add('priorityHigh')
+        } else if (task.priority === "Low"){
+          taskItemContainer.classList.add('priorityLow')
+        } 
         const taskTitleP = document.createElement('p');
         taskTitleP.classList.add('taskTitle');
         taskTitleP.textContent = task.title;
@@ -67,8 +68,20 @@ export const renderMonthView = (function() {
 
     });
   }
+  
+  function getMonthName(monthNumber) {
+    const date = new Date(2000, monthNumber); // year doesn't matter
+    return date.toLocaleString('default', { month: 'long' }); 
+  }
 
-  function renderMonthGrid() {
+  function renderMonthGrid(month, year) {
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfMonth = new Date(year, month, 1);
+    const startDay = firstDayOfMonth.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    console.log("days in month:", daysInMonth);
+    const monthName = getMonthName(month);
+    console.log("current month:", monthName); 
+
     console.log("rendering month grid");
     const viewContainer = document.getElementById("viewContainer");
 
@@ -81,7 +94,7 @@ export const renderMonthView = (function() {
     backArrow.id = "backArrow";
     const monthNameDiv = document.createElement("div");
     monthNameDiv.id = "monthNameDiv";
-    monthNameDiv.textContent = currentMonthName;
+    monthNameDiv.textContent = monthName;
     const forwardArrow = document.createElement("div");
     forwardArrow.id = "forwardArrow";
     monthHeader.appendChild(backArrow);
@@ -125,6 +138,12 @@ export const renderMonthView = (function() {
     
     const monthGrid = document.createElement("div");
     monthGrid.id = "monthGrid";
+
+    for (let i = 0; i < startDay; i++) {
+      const blankCell = document.createElement('div');
+      blankCell.classList.add('blankCell');
+      monthGrid.appendChild(blankCell);
+    }
 
     for (let day = 1; day <= daysInMonth; day++) {
         const dayCell = document.createElement("div");
