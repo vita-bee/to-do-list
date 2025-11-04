@@ -230,7 +230,6 @@ textarea {
   width: 100%;
   height: 100%;
   padding: 10px;
-  font-size: 9px;
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 14px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
 }
 
@@ -258,6 +257,8 @@ textarea {
   flex-direction: row;
   justify-content:space-around;
   padding: 3px;
+  font-size: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -279,9 +280,9 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
-  outline: 1px solid gray;
-  background: #c0c0c0; 
+  background: #dbdada; 
   gap: 1px;
+  padding: 1px;
 }
 
 p.dayHeader {
@@ -289,8 +290,14 @@ p.dayHeader {
   font-family: Roboto;
 }
 
-.dayCell, .blankCell{
+.dayCell {
   background: whitesmoke;
+  min-height: 100px;
+  height: 100%;
+}
+
+.blankCell {
+  background: none;
   min-height: 100px;
   height: 100%;
 }
@@ -298,6 +305,7 @@ p.dayHeader {
 p.dayNum {
   color: rgb(8, 114, 102);
   font-family: Roboto;
+  font-size: 9px;
   text-align: left;
   padding: 3px;
 }
@@ -319,6 +327,7 @@ p.dayNum {
   text-align: left;
   padding: 2px;
   margin: 2px;
+  font-size: 9px;
 }
  .priorityHigh{
   background-color: rgb(251, 219, 225);

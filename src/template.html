@@ -36,7 +36,7 @@
                             <label for="task_project">Project Bin:</label>
                             <select id="task_project_select" name="task_project_select">
                                 <option value="inbox" selected>Inbox</option>
-                                <option value="addnew">➕ add new project...</option>
+                                <option value="addNew">➕ Add new project...</option>
                             </select>
                         </div>
                         
@@ -60,6 +60,50 @@
                     <form id="addProjectForm">
                         <label for="project_name">Name:</label>
                         <input type="text" id="project_name" name="project_name" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="editTaskOverlay" class="overlay">
+            <div id="editTaskModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeBtn">&times;</span>
+                    <h3>Edit</h3>
+                    <form id="editTaskForm">
+                        <div class='form-row'>
+                            <label for="editTask_project">Project:</label>
+                                <select id="editTask_project_select" name="editTask_project_select">
+                                    <option value="Inbox">Inbox</option>
+                                    <option value="addNew">➕ Add new project...</option>
+                                </select>
+                        </div>
+                        <div class='form-row'>
+                            <label for="editTask_name">Task:</label>
+                            <input type="text" id="editTask_name" name="editTask_name" required>
+                        </div>
+                        <div class='form-row'>
+                            <label for="editTask_due_date">Due Date:</label>
+                            <input type="date" id="editTask_due_date" name="editTask_due_date" required>
+                        </div>
+                        <div class='form-row'>
+                            <label for="editTask_priority_select">Priority Level:</label>
+                                <select id="editTask_priority_select" name="editTask_priority_select">
+                                    <option value="Low">Low</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="High">High</option>
+                                </select>
+                        </div>
+                        <div class='form-row'>
+                            <label for="editTask_descrip">Description:</label>
+                            <textarea id="editTask_descrip" name="editTask_descrip" rows="2" cols="33" placeholder="Task description (optional)..."></textarea>
+                        </div>
+                        <div class='form-row'>
+                            <label for="editTask_is_done">Mark as done</label>
+                                <input type="checkbox" id="editTask_is_done" name="editTask_is_done">
+                        </div>
+                        <br>
                         <button type="submit">Submit</button>
                     </form>
                 </div>

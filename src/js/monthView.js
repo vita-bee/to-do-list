@@ -1,6 +1,7 @@
 import "../styles.css";
 import { format, addDays } from 'date-fns';
 import { PubSub } from './pubsub.js';
+// import { taskData } from './taskData.js'
 
 export const renderMonthView = (function() {
     let currentYear;
@@ -15,6 +16,7 @@ export const renderMonthView = (function() {
     PubSub.subscribe('backArrow.clicked', renderPreviousMonth);
     PubSub.subscribe('forwardArrow.clicked', renderNextMonth);
   }
+
 
   function renderPreviousMonth() {
     if (currentMonth === 0) {
@@ -49,11 +51,6 @@ export const renderMonthView = (function() {
       const taskDay = taskDate.getDate();
       const taskMonth = taskDate.getMonth(); // 0-11
       const taskYear = taskDate.getFullYear();  
-      // const taskDateStr = task.dueDate;             
-      // const taskDateObj = new Date(taskDateStr);     // convert to Date object
-      // const taskDay = taskDateObj.getDate();
-      // const taskMonth = taskDateObj.getMonth();      // returns 0–11 (0 = January)
-      // const taskYear = taskDateObj.getFullYear(); 
 
       if ((taskMonth === currentMonth) && (taskYear === currentYear)){
         console.log("taskDay:", taskDay);
@@ -186,6 +183,10 @@ export const renderMonthView = (function() {
 
     monthContainer.appendChild(monthGrid);
     viewContainer.appendChild(monthContainer);
+    //taskData.js listens for monthView Change and publishes its own msg that tasks are updated 
+    // --this msg is then heard by monthView with taskArr passed in and this is used to then rendersTasks
+    // on changed monthview
+    PubSub.publish('monthView.changed', {}); 
 }
 return {init};
 

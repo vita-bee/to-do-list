@@ -1,11 +1,9 @@
 import { PubSub } from './pubsub.js';
-import { projectData } from './projectData.js';
 
-export const projectModalHandler = (function() {
+export const projectModal = (function() {
   let modal, span, overlay;
 
   function init() {
-    console.log('MODAL handler INIT');
     modal = document.getElementById("addProjectModal");
     span = document.getElementsByClassName("closeBtn")[0];
     overlay = document.getElementById("addProjectOverlay");
@@ -19,7 +17,6 @@ export const projectModalHandler = (function() {
   }
 
   function openAddProjectModal() {
-    console.log('opening modal....');
     overlay.style.display = "block";
   }
 
@@ -44,8 +41,10 @@ export const projectModalHandler = (function() {
       if (!projectName) return;
       
       console.log("Modal Form submitted. Project Name:", projectName);
-      // PubSub.publish("project.added", { projectName: projectName });
-      projectData.addProject(projectName); // projectdata funct adds to array and triggers PubSub event 
+      const projectSelectorName = "task_project_select" 
+      //passing in the dom element project selector name to differentiate 
+      // since it exists in main form as well as editTaskModalForm
+      PubSub.publish("project.newsubmitted", {projectName, projectSelectorName});
       form.reset();
       closeAddProjectModal();
     });

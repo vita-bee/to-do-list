@@ -1,9 +1,8 @@
 import { PubSub } from './pubsub.js';
 import { projectData } from './projectData.js';
 
-export const projectSelectorHandler = (function() {
-  const select = document.getElementById('task_project_select');
-
+export const projectSelector = (function() {
+  
   function init() {
     // subscribe to updates
     PubSub.subscribe('projects.updated', updateProjectSelector);
@@ -12,7 +11,9 @@ export const projectSelectorHandler = (function() {
     updateProjectSelector(projectData.getAll());
   }
 
-  function updateProjectSelector(projectArr) {
+  function updateProjectSelector({projectArr, projectSelectorName}) {
+    console.log("projectSelectorName:", projectSelectorName);
+    const select = document.getElementById(projectSelectorName);
     // clear existing options
     select.innerHTML = '';
 

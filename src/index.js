@@ -2,13 +2,13 @@
 import "./styles.css";
 import { format, addDays } from 'date-fns';
 import { PubSub } from './js/pubsub.js';
-import { taskFormHandler } from './js/taskFormHandler.js'
+import { taskData } from './js/taskData.js'
 import { renderMonthView } from "./js/monthView.js";
-import { projectModalHandler } from "./js/projectModalHandler.js"
+import { projectModal } from "./js/projectModal.js"
 import { projectData } from "./js/projectData.js";
-import { projectSelectorHandler } from "./js/projectSelectorHandler.js";
+import { projectSelector } from "./js/projectSelector.js";
+import { editTaskModal } from "./js/editTaskModal.js";
 
-console.log("hello");
 const today = new Date();
 const tomorrow = addDays(today, 1);
 console.log('Today:', format(today, 'yyyy-MM-dd'));
@@ -27,27 +27,24 @@ function handleEvent(event) {
     const forwardArrow = event.target.matches("#forwardArrow");
     if (taskItem) {
       console.log("task item container was clicked, task id is:" , taskItem.id);
-      PubSub.publish("taskItemContainer.clicked", taskItem.id);
+      // PubSub.publish("taskItemContainer.clicked", taskItem.id);
+      PubSub.publish("taskItem.editRequested", taskItem.id);
     }
     if (backArrow){
-      console.log("backArrow was clicked");
       PubSub.publish("backArrow.clicked", {});
     }
     if (forwardArrow){
-      console.log("forwardArrow was clicked");
       PubSub.publish("forwardArrow.clicked", {});
     }
   }
   if (event.type === "submit" && event.target.matches("#addTaskForm")) {
-    console.log('form submit occurred:', event.type);
     event.preventDefault();
-    PubSub.publish('form.submitted', {formData: new FormData(event.target)});
+    PubSub.publish('addTaskform.submitted', {formData: new FormData(event.target)});
     const form = document.getElementById('addTaskForm');
     form.reset();
   }
   if (event.type === "change" && event.target.matches("#task_project_select")) {
     if (event.target.value === "addNew") {
-      console.log("add new project chosen:", event.type);
       PubSub.publish("project.addNewSelected", {});
     }
   }
@@ -55,9 +52,10 @@ function handleEvent(event) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  taskFormHandler.init();
+  taskData.init();
   renderMonthView.init();
-  projectModalHandler.init();
+  projectModal.init();
   projectData.init(['Inbox']);
-  projectSelectorHandler.init();
+  projectSelector.init();
+  editTaskModal.init();
 });
