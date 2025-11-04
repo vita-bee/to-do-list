@@ -35,11 +35,14 @@ export const projectSelector = (function() {
     });
 
     // add the "Add new project" option at the end
-    const addNew = document.createElement('option');
-    addNew.value = 'addNew';
-    addNew.textContent = '➕Add new project';
-    select.appendChild(addNew);
-
+    // but only if it is the main form selector menu
+    // there should be no add new project option in the editTaskModalForm
+    if (projectSelectMenuName === 'task_project_select') {
+      const addNew = document.createElement('option');
+      addNew.value = 'addNew';
+      addNew.textContent = '➕Add new project';
+      select.appendChild(addNew);
+    }
     const lastProject = projectArr[projectArr.length - 1];
     if (lastProject) {
       select.value = lastProject;
