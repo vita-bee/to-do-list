@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   taskData.init();
   renderMonthView.init();
   projectModal.init();
-  projectData.init(['Inbox']);
+  projectData.init();
   projectSelector.init();
   editTaskModal.init();
 });

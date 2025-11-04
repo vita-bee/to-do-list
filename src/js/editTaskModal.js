@@ -45,7 +45,6 @@ export const editTaskModal = (function() {
 
   function openEditTaskModal() {
     overlay.style.display = "block";
-
   }
 
   function closeEditTaskModal() {
@@ -62,34 +61,44 @@ export const editTaskModal = (function() {
   }
 
   function handleEditTaskModalForm(origTask) {
-    console.log("handle edit task modal form: orig task:", origTask)
+    console.log("handle edit task modal form: orig task:", origTask);
     const editTaskform = document.getElementById("editTaskForm");
-    editTaskform.addEventListener("submit", function(event) {
+    // If a previous listener exists, remove it
+    if (editTaskform._editListener) {
+      editTaskform.removeEventListener("submit", editTaskform._editListener);
+    }
+    // Create a new listener that closes over origTask
+    const listener = function(event) {
       event.preventDefault();
-      const formData = new FormData(event.target)
-      const id = origTask.id; 
+      const formData = new FormData(event.target);
+      const id = origTask.id;
       const title = formData.get('editTask_name');
       const dueDate = formData.get('editTask_due_date');
       const priority = formData.get('editTask_priority_select');
       const project = formData.get('editTask_project_select');
       const descrip = formData.get('editTask_descrip');
-      const is_done = !!formData.get('editTask_is_done'); //convert to checkbox result to boolean
+      const is_done = !!formData.get('editTask_is_done'); // convert checkbox result to boolean
       const editedTask = {
-        id: id,
-        title: title,
-        dueDate: dueDate,
-        priority: priority,
-        project: project,
-        descrip: descrip,
-        is_done: is_done,
-      }
+        id,
+        title,
+        dueDate,
+        priority,
+        project,
+        descrip,
+        is_done,
+      };
       console.log("Edit Modal Form submitted. Edited task:", editedTask);
-      PubSub.publish("taskItem.editSubmitted", editedTask); 
+      PubSub.publish("taskItem.editSubmitted", editedTask);
       editTaskform.reset();
       closeEditTaskModal();
-    }, { once: true }); //event listener should run only once each time
-    
-  }
+    };
+    // Store this listener reference so can remove it later
+    // because extra listeners hanging around is creating bug in code
+    editTaskform._editListener = listener;
+    // Attach it
+    editTaskform.addEventListener("submit", listener);
+ }
+
 
 
 return {init, open: openEditTaskModal, close: closeEditTaskModal };
