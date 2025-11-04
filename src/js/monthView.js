@@ -7,11 +7,12 @@ export const renderMonthView = (function() {
     let currentYear;
     let currentMonth;
 
-  function init() {
+  function init(taskArr) {
     const now = new Date();
     currentYear = now.getFullYear();
     currentMonth = now.getMonth(); // 0 = Jan, 1 = Feb, etc.
     renderMonthGrid(currentMonth, currentYear);
+    renderTasks(taskArr);
     PubSub.subscribe('tasks.updated', renderTasks);
     PubSub.subscribe('backArrow.clicked', renderPreviousMonth);
     PubSub.subscribe('forwardArrow.clicked', renderNextMonth);
@@ -87,7 +88,7 @@ export const renderMonthView = (function() {
         } else {
           taskItemContainer.classList.remove("doneTask");
         }
-        
+
         taskItemContainer.appendChild(taskDescripP);
 
         taskDayCell.appendChild(taskItemContainer);

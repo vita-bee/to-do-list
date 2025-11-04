@@ -1,10 +1,12 @@
 import { PubSub } from './pubsub.js';
 
 export const projectData = (function() {
-  let projectArr = [];
+  const projectArr = [];
 
-  function loadFromStorage(storedProjects){
-    projectArr = storedProjects;
+  function loadFromStorage(storedProjects) {
+    if (!Array.isArray(storedProjects)) return;
+    projectArr.length = 0; //clear array             
+    projectArr.push(...storedProjects); //repopulate with array from local storage
   }
 
   function addProject({ projectName, projectSelectMenuName }) {
@@ -19,7 +21,7 @@ export const projectData = (function() {
   }
 
   function init() {
-    if (projectArr.length === 0) projectArr = ['Inbox'];
+    if (projectArr.length === 0) projectArr[0] = 'Inbox';
     // pass in project array as well as the dom element selector name since there are multiple selectors
     const selectorName = 'task_project_select' //in initiliation, this main form slector us the relevant dom element
     PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName});

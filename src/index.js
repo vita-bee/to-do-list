@@ -51,13 +51,12 @@ function handleEvent(event) {
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-  localStorageHandler.init();
+  localStorageHandler.init(); //first load stored tasks and projects to projectArr and taskArr
   taskData.init();
-  renderMonthView.init();
-  projectModal.init();
   projectData.init();
   projectSelector.init();
+  renderMonthView.init(taskData.getAllTasks());
+  projectModal.init();
   editTaskModal.init();
 });

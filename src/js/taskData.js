@@ -1,7 +1,7 @@
 import { PubSub } from './pubsub.js';
 
 export const taskData = (function() {
-  let taskArr = []; 
+  const taskArr = []; 
   
   function init() {
     console.log('task handler INIT');
@@ -11,8 +11,10 @@ export const taskData = (function() {
     PubSub.subscribe("taskItem.editSubmitted", editTask); 
   }
 
-  function loadFromStorage(storedTasks){
-    taskArr = storedTasks;
+  function loadFromStorage(storedTasks) {
+    if (!Array.isArray(storedTasks)) return;
+    taskArr.length = 0; //clear array             
+    taskArr.push(...storedTasks); //repopulate with array from local storage
   }
     
   // when task item is clicked, the specific tasks data needs to be made available
