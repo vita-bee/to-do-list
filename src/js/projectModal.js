@@ -35,22 +35,23 @@ export const projectModal = (function() {
 
   function handleModalForm() {
     const form = document.getElementById("addProjectForm");
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      const projectName = document.getElementById("project_name").value.trim();
-      if (!projectName) return;
-      
-      console.log("Modal Form submitted. Project Name:", projectName);
-      const projectSelectorName = "task_project_select" 
-      //passing in the dom element project selector name to differentiate 
-      // since it exists in main form as well as editTaskModalForm
-      PubSub.publish("project.newsubmitted", {projectName, projectSelectorName});
-      form.reset();
-      closeAddProjectModal();
-    });
+    form.removeEventListener("submit", onAddProjectSubmit);
+    form.addEventListener("submit", onAddProjectSubmit);
   }
+  function onAddProjectSubmit(event) {
+    event.preventDefault();
+    const projectName = document.getElementById("project_name").value.trim();
+    if (!projectName) return;
 
-
-return {init, open: openAddProjectModal, close: closeAddProjectModal };
-
+    console.log("Modal Form submitted. Project Name:", projectName);
+    const projectSelectMenuName = "task_project_select";
+    PubSub.publish("project.newsubmitted", { projectName, projectSelectMenuName });
+    
+    event.target.reset();
+    closeAddProjectModal();
+  }
+  
+  
+  return {init, open: openAddProjectModal, close: closeAddProjectModal };
+  
 })();

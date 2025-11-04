@@ -81,6 +81,13 @@ export const renderMonthView = (function() {
         const taskDescripP = document.createElement('p');
         taskDescripP.classList.add('taskDescrip');
         taskDescripP.textContent = task.descrip;
+
+        if (task.is_done) {
+          taskItemContainer.classList.add("doneTask");
+        } else {
+          taskItemContainer.classList.remove("doneTask");
+        }
+        
         taskItemContainer.appendChild(taskDescripP);
 
         taskDayCell.appendChild(taskItemContainer);

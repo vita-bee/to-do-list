@@ -361,6 +361,13 @@ p.taskDescrip{
   font-weight:500;
 }
 
+.doneTask p.taskTitle,
+.doneTask p.taskProjectName,
+.doneTask p.taskDescrip {
+  text-decoration: line-through;
+  color: grey; 
+}
+
 footer {
   font-size: 10px;
   padding: 10px;

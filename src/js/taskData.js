@@ -1,7 +1,7 @@
 import { PubSub } from './pubsub.js';
 
 export const taskData = (function() {
-  const taskArr = []; 
+  let taskArr = []; 
   
   function init() {
     console.log('task handler INIT');
@@ -11,11 +11,15 @@ export const taskData = (function() {
     PubSub.subscribe("taskItem.editSubmitted", editTask); 
   }
 
+  function loadFromStorage(storedTasks){
+    taskArr = storedTasks;
+  }
+    
   // when task item is clicked, the specific tasks data needs to be made available
   // to the edit modal. Data will be loaded via publish event which the modal subscribes to
   function loadTaskToEditData(taskId) {
     const task = getTaskById(taskId);
-    PubSub.publish("editTaskItem.dataLoaded", task );
+    PubSub.publish('editTaskItem.dataLoaded', task );
   }
 
   function getTaskById(id) {
@@ -90,5 +94,5 @@ export const taskData = (function() {
 
   
   
-  return {init, addNewTask, deleteTask, editTask, markTaskDone, getAllTasks};
+  return {init, addNewTask, deleteTask, editTask, markTaskDone, getAllTasks, loadFromStorage};
 })();

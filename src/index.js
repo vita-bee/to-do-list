@@ -8,6 +8,7 @@ import { projectModal } from "./js/projectModal.js"
 import { projectData } from "./js/projectData.js";
 import { projectSelector } from "./js/projectSelector.js";
 import { editTaskModal } from "./js/editTaskModal.js";
+import { localStorageHandler } from './js/localStorage.js';
 
 const today = new Date();
 const tomorrow = addDays(today, 1);
@@ -52,6 +53,7 @@ function handleEvent(event) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  localStorageHandler.init();
   taskData.init();
   renderMonthView.init();
   projectModal.init();

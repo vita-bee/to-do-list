@@ -13,6 +13,8 @@ export const editTaskModal = (function() {
       return;
     }
     PubSub.subscribe("editTaskItem.dataLoaded", (origTask) => {
+      console.log("reached");
+      populateProjectSelectMenu();
       populateEditTaskModalForm(origTask);
       openEditTaskModal();
       handleEditTaskModalForm(origTask);
@@ -21,11 +23,20 @@ export const editTaskModal = (function() {
     
   }
 
+  function populateProjectSelectMenu() {
+    // publish msg that edit taskmodal is loaded so projectSelector module can 
+    // react and populate the proj selector menu in the editTaskModalForm
+    // pass in the dom element name for the selector
+    const editTaskSelectMenuName = 'editTask_project_select';
+    PubSub.publish('editTaskModalForm.loaded', editTaskSelectMenuName);
+  }
+
   function populateEditTaskModalForm(task){
     const editTaskform = document.getElementById("editTaskForm");
     console.log("task to populate is", task);
     editTaskform.querySelector('#editTask_name').value = task.title || '';
     editTaskform.querySelector('#editTask_due_date').value = task.dueDate || '';
+    console.log("projec is:", task.project);
     editTaskform.querySelector('#editTask_project_select').value = task.project || 'inbox';
     editTaskform.querySelector('#editTask_priority_select').value = task.priority || 'Normal';
     editTaskform.querySelector('#editTask_descrip').value = task.descrip || '';
@@ -62,7 +73,7 @@ export const editTaskModal = (function() {
       const priority = formData.get('editTask_priority_select');
       const project = formData.get('editTask_project_select');
       const descrip = formData.get('editTask_descrip');
-      const is_done = formData.get('editTask_is_done');
+      const is_done = !!formData.get('editTask_is_done'); //convert to checkbox result to boolean
       const editedTask = {
         id: id,
         title: title,

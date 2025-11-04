@@ -6,14 +6,23 @@ export const projectSelector = (function() {
   function init() {
     // subscribe to updates
     PubSub.subscribe('projects.updated', updateProjectSelector);
-
+    //subscribe to editTaskModalForm load in order to populate it's selector menu
+    PubSub.subscribe('editTaskModalForm.loaded', populateEditTaskSelectMenu);
     // populate on first load
-    updateProjectSelector(projectData.getAll());
+    const projectSelectMenuName = "task_project_select";
+    const projectArr = projectData.getAll();
+    updateProjectSelector({projectArr, projectSelectMenuName});
   }
 
-  function updateProjectSelector({projectArr, projectSelectorName}) {
-    console.log("projectSelectorName:", projectSelectorName);
-    const select = document.getElementById(projectSelectorName);
+  function populateEditTaskSelectMenu (editTaskSelectMenuName){
+    console.log("selectorName passed to populate edit modal:", editTaskSelectMenuName);
+    const projectArr = projectData.getAll();
+    updateProjectSelector({projectArr, projectSelectMenuName: editTaskSelectMenuName})
+  }
+
+  function updateProjectSelector({projectArr, projectSelectMenuName}) {
+    console.log("projectSelectMenuName:", projectSelectMenuName);
+    const select = document.getElementById(projectSelectMenuName);
     // clear existing options
     select.innerHTML = '';
 
