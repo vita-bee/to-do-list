@@ -2,6 +2,7 @@ import { PubSub } from './pubsub.js';
 
 export const projectModal = (function() {
   let modal, span, overlay;
+  
 
   function init() {
     modal = document.getElementById("addProjectModal");
@@ -21,6 +22,15 @@ export const projectModal = (function() {
   }
 
   function closeAddProjectModal() {
+    // retrieving all elements locally to avoid mismatches 
+    // this should be done in case  elements and there internals may get 
+    // removed or recreated in the dom since globals might point to old versions
+    const addProjectForm = document.getElementById("addProjectForm");
+    // remove event listener on close
+    if (addProjectForm._submitListener) {
+      addProjectForm.removeEventListener("submit", addProjectForm._submitListener);
+      delete addProjectForm._submitListener;
+    }
     overlay.style.display = "none";
   }
 
@@ -34,24 +44,27 @@ export const projectModal = (function() {
   }
 
   function handleModalForm() {
-    const form = document.getElementById("addProjectForm");
-    form.removeEventListener("submit", onAddProjectSubmit);
-    form.addEventListener("submit", onAddProjectSubmit);
+    const addProjectForm = document.getElementById("addProjectForm");
+    // Remove previous listener if it exists
+    if (addProjectForm._submitListener) {
+      addProjectForm.removeEventListener("submit", addProjectForm._submitListener);
+    }
+    // Define the listener
+    const listener = function(event) {
+      event.preventDefault();
+      const projectName = document.getElementById("project_name").value.trim();
+      if (!projectName) return;
+      const projectSelectMenuName = "task_project_select";
+      PubSub.publish("project.newsubmitted", { projectName, projectSelectMenuName });
+      event.target.reset();
+      closeAddProjectModal();
+    };
+    // Store the reference on the form dom element as a property
+    addProjectForm._submitListener = listener;
+    // Attach the listener
+    addProjectForm.addEventListener("submit", listener);
   }
-  function onAddProjectSubmit(event) {
-    event.preventDefault();
-    const projectName = document.getElementById("project_name").value.trim();
-    if (!projectName) return;
 
-    console.log("Modal Form submitted. Project Name:", projectName);
-    const projectSelectMenuName = "task_project_select";
-    PubSub.publish("project.newsubmitted", { projectName, projectSelectMenuName });
-    
-    event.target.reset();
-    closeAddProjectModal();
-  }
-  
-  
   return {init, open: openAddProjectModal, close: closeAddProjectModal };
   
 })();

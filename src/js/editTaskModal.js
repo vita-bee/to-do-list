@@ -1,7 +1,7 @@
 import { PubSub } from './pubsub.js';
 
 export const editTaskModal = (function() {
-  let modal, span, overlay;
+  let modal, span, overlay; 
   
   function init() {
     modal = document.getElementById("editTaskModal");
@@ -45,7 +45,22 @@ export const editTaskModal = (function() {
   }
 
   function closeEditTaskModal() {
-    overlay.style.display = "none";
+    // retrieving all elements locally to avoid mismatches 
+    // this should be done in case  elements and there internals may get 
+    // removed or recreated in the dom since globals might point to old versions
+    const editTaskform = document.getElementById("editTaskForm");
+    const editTaskModal = document.getElementById("editTaskModal");
+    const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn"); 
+    // Remove old listeners if they exists
+    if (deleteTaskBtn._deleteListener) {
+      deleteTaskBtn.removeEventListener("click", deleteTaskBtn._deleteListener);
+      delete deleteTaskBtn._deleteListener;
+    }
+    if (editTaskform._editListener) {
+      editTaskform.removeEventListener("submit", editTaskform._editListener);
+      delete editTaskform._editListener; // optional, clean up
+    }
+      overlay.style.display = "none";
   }
 
   function setupCloseHandlers() {
@@ -58,8 +73,8 @@ export const editTaskModal = (function() {
   }
 
   function handleEditTaskModalForm(origTask) {
-    // console.log("handle edit task modal form: orig task:", origTask);
     const editTaskform = document.getElementById("editTaskForm");
+    // console.log("handle edit task modal form: orig task:", origTask);
     // If a previous listener exists, remove it
     if (editTaskform._editListener) {
       editTaskform.removeEventListener("submit", editTaskform._editListener);
@@ -89,24 +104,31 @@ export const editTaskModal = (function() {
       editTaskform.reset();
       closeEditTaskModal();
     };
-    // Store this listener reference so can remove it later
-    // because extra listeners hanging around is creating bug in code
+    // Store this listener reference so can be remove next time function is called.
+    // because extra listeners hanging around is creating bugs in code
     editTaskform._editListener = listener;
     // Attach it
     editTaskform.addEventListener("submit", listener);
  }
 
- function handleDeleteBtn(task) {
-    const editTaskModal = document.getElementById("editTaskModal");
-    const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn");
-    const handleDeleteClick = () => {
-      closeEditTaskModal();
-      PubSub.publish("taskItem.deleteRequested", task);
-    };
-    // Remove any previous listener before adding a new one
-    deleteTaskBtn.removeEventListener("click", handleDeleteClick);
-    deleteTaskBtn.addEventListener("click", handleDeleteClick);
- }
+
+function handleDeleteBtn(task) {
+  const editTaskModal = document.getElementById("editTaskModal");
+  const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn"); 
+  // Remove previous listener if it exists
+  if (deleteTaskBtn._deleteListener) {
+    deleteTaskBtn.removeEventListener("click", deleteTaskBtn._deleteListener);
+  }
+  // Define new listener
+  const listener = () => {
+    closeEditTaskModal();
+    PubSub.publish("taskItem.deleteRequested", task);
+  };
+  // Store the reference on the button dome element as a property
+  deleteTaskBtn._deleteListener = listener;
+  // Add the listener
+  deleteTaskBtn.addEventListener("click", listener);
+}
 
 
 return {init, open: openEditTaskModal, close: closeEditTaskModal };

@@ -2,8 +2,7 @@ import { PubSub } from './pubsub.js';
 
 export const deleteTaskModal = (function() {
   let modal, span, overlay;
-  
-
+    
   function init() {
     modal = document.getElementById("deleteTaskModal");
     span = document.getElementsByClassName("closeBtn")[2]; //this is 3rd modal in the html so use index [2]
@@ -15,7 +14,7 @@ export const deleteTaskModal = (function() {
     PubSub.subscribe("taskItem.deleteRequested", (task) => {
       displayTaskDetails(task);
       openDeleteTaskModal();
-      handleConfirmDeleteTask(task);
+      handleConfirmDeleteModal(task);
       setupCloseHandlers();
     });
   }
@@ -55,6 +54,21 @@ export const deleteTaskModal = (function() {
   }
 
   function closeDeleteTaskModal() {
+    // retrieving all elements locally to avoid mismatches 
+    // this should be done in case  elements and there internals may get 
+    // removed or recreated in the dom since globals might point to old versions
+    const overlay = document.getElementById("deleteTaskOverlay");
+    const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
+    const deleteCancelBtn = document.getElementById("deleteCancelBtn");
+    // Remove old listeners if they exist
+    if (deleteConfirmBtn._clickListener) {
+      deleteConfirmBtn.removeEventListener("click", deleteConfirmBtn._clickListener);
+      delete deleteConfirmBtn._clickListener;
+    }
+    if (deleteCancelBtn._clickListener) {
+      deleteCancelBtn.removeEventListener("click", deleteCancelBtn._clickListener);
+      delete deleteCancelBtn._clickListener;
+    }
     overlay.style.display = "none";
   }
 
@@ -67,18 +81,32 @@ export const deleteTaskModal = (function() {
     };
   }
 
-  function handleConfirmDeleteTask(task) {
-    //console.log("handle delete task: task:", task);
+  function handleConfirmDeleteModal(task) {
     const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
-    const handleDeleteClick = () => {
+    const deleteCancelBtn = document.getElementById("deleteCancelBtn");
+    // Remove old listeners if they exist
+    if (deleteConfirmBtn._clickListener) {
+      deleteConfirmBtn.removeEventListener("click", deleteConfirmBtn._clickListener);
+    }
+    if (deleteCancelBtn._clickListener) {
+      deleteCancelBtn.removeEventListener("click", deleteCancelBtn._clickListener);
+    }
+    // Define new listeners
+    const confirmListener = () => {
       closeDeleteTaskModal();
       PubSub.publish("taskItem.deleteConfirmed", task.id);
     };
-    // Remove any previous listener before adding a new one
-    deleteConfirmBtn.removeEventListener("click", handleDeleteClick);
-    deleteConfirmBtn.addEventListener("click", handleDeleteClick);
-    // console.log("Delete Modal Confirm submitted. Delete task:", task);
+    const cancelListener = () => {
+      closeDeleteTaskModal();
+    };
+    // Store references on the button elments as properties
+    deleteConfirmBtn._clickListener = confirmListener;
+    deleteCancelBtn._clickListener = cancelListener;
+    // Attach listeners
+    deleteConfirmBtn.addEventListener("click", confirmListener);
+    deleteCancelBtn.addEventListener("click", cancelListener);
   }
+
 
   return {init, open: openDeleteTaskModal, close: closeDeleteTaskModal}
 })()

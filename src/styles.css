@@ -421,10 +421,14 @@ footer {
   color: black;
 }
 
-.deleteTaskBtn, #deleteConfirmBtn {
+.deleteTaskBtn {
   background-color: rgb(246, 176, 176);
   display: block;
   margin-right: auto; /* pushes it to the left */
+}
+
+#deleteConfirmBtn {
+  background-color: rgb(246, 176, 176);
 }
 
 #deleteTaskItemContainer {
@@ -433,7 +437,13 @@ footer {
   grid-template-rows: auto auto;
   background-color: rgb(198, 220, 246);
   text-align: left;
-  padding: 2px;
-  margin: 2px;
-  font-size: 9px;
+  padding: 5px;
+  margin: 10px;
 }
+ 
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
