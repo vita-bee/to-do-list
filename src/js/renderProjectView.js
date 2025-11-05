@@ -5,26 +5,68 @@ import { PubSub } from './pubsub.js';
 
 export const renderProjectView = (function() {
 
-  function init(projectArr) {
-    renderProjects(projectArr);
+  function init(projectArr, taskArr) {
+    renderProjects(projectArr, taskArr);
   }
 
-  function renderProjects(projArr) {
+  function renderProjects(projArr, taskArr) {
     console.log("rendering project view");
     const viewContainer = document.getElementById("viewContainer");
     // Clear current view
     while (viewContainer.firstChild) {
         viewContainer.removeChild(viewContainer.firstChild);
     }
-    // Create a wrapper div for projects
-    const div = document.createElement("div");
-    div.classList.add("projectsView"); // class for styling
+    
+    const projectCardsContainer = document.createElement("div");
+    projectCardsContainer.id = 'projectCardsContainer';
+    
     projArr.forEach(projectName => {
-        const p = document.createElement("p");
-        p.textContent = projectName;
-        div.appendChild(p);
+      const card = document.createElement("div");
+      card.classList.add('card');
+      const h4 = document.createElement("h4");
+      h4.textContent = projectName;
+      const hr = document.createElement("hr");
+      card.appendChild(h4);
+      card.appendChild(hr);
+
+      taskArr.forEach(task => {
+        if (task.project === projectName){
+          const taskItemContainer = document.createElement('div');
+          taskItemContainer.classList.add('taskItemContainer');
+          taskItemContainer.id = task.id;
+          if (task.priority === "High") {
+            taskItemContainer.classList.add('priorityHigh')
+          } else if (task.priority === "Low"){
+            taskItemContainer.classList.add('priorityLow')
+          } 
+          const taskTitleP = document.createElement('p');
+          taskTitleP.classList.add('taskTitle');
+          taskTitleP.textContent = task.title;
+          taskItemContainer.appendChild(taskTitleP);
+
+          const taskDueDateP = document.createElement('p');
+          taskDueDateP.classList.add('taskDueDate');
+          taskDueDateP.textContent = task.dueDate;
+          taskItemContainer.appendChild(taskDueDateP);
+
+          const taskDescripP = document.createElement('p');
+          taskDescripP.classList.add('taskDescrip');
+          taskDescripP.textContent = task.descrip;
+
+          if (task.is_done) {
+            taskItemContainer.classList.add("doneTask");
+          } else {
+            taskItemContainer.classList.remove("doneTask");
+          }
+
+          taskItemContainer.appendChild(taskDescripP);
+          card.appendChild(taskItemContainer);
+        }
+      });
+      projectCardsContainer.appendChild(card);
     });
-    viewContainer.appendChild(div);
+
+    viewContainer.appendChild(projectCardsContainer);
   }
 
   return {init};

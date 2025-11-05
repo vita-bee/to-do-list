@@ -73,7 +73,7 @@ navButtons.forEach(navBtn => {
         navBtn.classList.remove('inActiveNavTab');
         navBtn.classList.add('activeNavTab');
         content.replaceChildren();
-        renderProjectView.init(projectData.getAllProjects());
+        renderProjectView.init(projectData.getAllProjects(), taskData.getAllTasks());
     } else if (navBtn.textContent==="Month View") {
         navBtn.classList.remove('inActiveNavTab');
         navBtn.classList.add('activeNavTab');
