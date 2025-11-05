@@ -3,7 +3,6 @@ import { PubSub } from './pubsub.js';
 export const editTaskModal = (function() {
   let modal, span, overlay;
   
-
   function init() {
     modal = document.getElementById("editTaskModal");
     span = document.getElementsByClassName("closeBtn")[1]; //this is 2nd modal in the html so use index [1]
@@ -13,14 +12,13 @@ export const editTaskModal = (function() {
       return;
     }
     PubSub.subscribe("editTaskItem.dataLoaded", (origTask) => {
-      console.log("reached");
       populateProjectSelectMenu();
       populateEditTaskModalForm(origTask);
       openEditTaskModal();
       handleEditTaskModalForm(origTask);
+      handleDeleteBtn(origTask);
       setupCloseHandlers();
     });
-    
   }
 
   function populateProjectSelectMenu() {
@@ -33,10 +31,9 @@ export const editTaskModal = (function() {
 
   function populateEditTaskModalForm(task){
     const editTaskform = document.getElementById("editTaskForm");
-    console.log("task to populate is", task);
+    // console.log("task to populate is", task);
     editTaskform.querySelector('#editTask_name').value = task.title || '';
     editTaskform.querySelector('#editTask_due_date').value = task.dueDate || '';
-    console.log("projec is:", task.project);
     editTaskform.querySelector('#editTask_project_select').value = task.project || 'inbox';
     editTaskform.querySelector('#editTask_priority_select').value = task.priority || 'Normal';
     editTaskform.querySelector('#editTask_descrip').value = task.descrip || '';
@@ -61,7 +58,7 @@ export const editTaskModal = (function() {
   }
 
   function handleEditTaskModalForm(origTask) {
-    console.log("handle edit task modal form: orig task:", origTask);
+    // console.log("handle edit task modal form: orig task:", origTask);
     const editTaskform = document.getElementById("editTaskForm");
     // If a previous listener exists, remove it
     if (editTaskform._editListener) {
@@ -87,7 +84,7 @@ export const editTaskModal = (function() {
         descrip,
         is_done,
       };
-      console.log("Edit Modal Form submitted. Edited task:", editedTask);
+      // console.log("Edit Modal Form submitted. Edited task:", editedTask);
       PubSub.publish("taskItem.editSubmitted", editedTask);
       editTaskform.reset();
       closeEditTaskModal();
@@ -99,6 +96,17 @@ export const editTaskModal = (function() {
     editTaskform.addEventListener("submit", listener);
  }
 
+ function handleDeleteBtn(task) {
+    const editTaskModal = document.getElementById("editTaskModal");
+    const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn");
+    const handleDeleteClick = () => {
+      closeEditTaskModal();
+      PubSub.publish("taskItem.deleteRequested", task);
+    };
+    // Remove any previous listener before adding a new one
+    deleteTaskBtn.removeEventListener("click", handleDeleteClick);
+    deleteTaskBtn.addEventListener("click", handleDeleteClick);
+ }
 
 
 return {init, open: openEditTaskModal, close: closeEditTaskModal };

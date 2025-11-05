@@ -59,6 +59,8 @@ button {
   opacity: 1;             
   transition: opacity 0.3s ease;  /* smooth fade effect */
   border: none;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 button:active {
@@ -208,7 +210,7 @@ textarea {
 }
 
 .divContainer {
-  flex-basis: 100%; /* forces it onto a new line to in parent flex container*/
+  flex-basis: 100%; /* forces it onto a new line in parent flex container*/
   display: flex;
   align-items: center;
   gap: 15px;
@@ -283,11 +285,6 @@ textarea {
   background: #dbdada; 
   gap: 1px;
   padding: 1px;
-}
-
-p.dayHeader {
-  color: brown;
-  font-family: Roboto;
 }
 
 .dayCell {
@@ -419,3 +416,24 @@ footer {
   cursor: pointer;
 }
 
+.saveTaskBtn  {
+  background-color: rgb(155, 185, 246);
+  color: black;
+}
+
+.deleteTaskBtn, #deleteConfirmBtn {
+  background-color: rgb(246, 176, 176);
+  display: block;
+  margin-right: auto; /* pushes it to the left */
+}
+
+#deleteTaskItemContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  background-color: rgb(198, 220, 246);
+  text-align: left;
+  padding: 2px;
+  margin: 2px;
+  font-size: 9px;
+}

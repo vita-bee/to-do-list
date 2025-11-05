@@ -9,6 +9,7 @@ export const taskData = (function() {
     PubSub.subscribe('monthView.changed', publishTasksUpdated);
     PubSub.subscribe("taskItem.editRequested", loadTaskToEditData);
     PubSub.subscribe("taskItem.editSubmitted", editTask); 
+    PubSub.subscribe("taskItem.deleteConfirmed", deleteTask);
   }
 
   function loadFromStorage(storedTasks) {
@@ -84,14 +85,16 @@ export const taskData = (function() {
     let taskIndex = taskArr.findIndex(task => task.id === taskId);
     taskArr[taskIndex].markDone;
     console.log("task marked done is:", taskArr[taskIndex]);
+    PubSub.publish('tasks.updated', [...taskArr]);
   }
 
   function deleteTask(taskId){
-    let taskIndex = taskArr.findIndex(task => task.id === taskId);
-    console.log("index to remove:", taskIndex);
+    let taskIndex = taskArr.findIndex(item => item.id === taskId);
+    console.log("task index to remove:", taskIndex);
     if (taskIndex !== -1) {
         taskArr.splice(taskIndex, 1); 
     }
+    PubSub.publish('tasks.updated', [...taskArr]);
   }
 
   

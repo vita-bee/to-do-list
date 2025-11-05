@@ -2,13 +2,14 @@
 import "./styles.css";
 import { format, addDays } from 'date-fns';
 import { PubSub } from './js/pubsub.js';
+import { localStorageHandler } from './js/localStorage.js';
 import { taskData } from './js/taskData.js'
 import { renderMonthView } from "./js/monthView.js";
 import { projectModal } from "./js/projectModal.js"
 import { projectData } from "./js/projectData.js";
 import { projectSelector } from "./js/projectSelector.js";
 import { editTaskModal } from "./js/editTaskModal.js";
-import { localStorageHandler } from './js/localStorage.js';
+import { deleteTaskModal } from "./js/deleteTaskModal.js";
 
 const today = new Date();
 const tomorrow = addDays(today, 1);
@@ -22,13 +23,11 @@ document.addEventListener("change", handleEvent);
 function handleEvent(event) {
   
   if (event.type === "click") {
-    console.log("click occurred");
     const taskItem = event.target.closest(".taskItemContainer");
     const backArrow = event.target.matches("#backArrow");
     const forwardArrow = event.target.matches("#forwardArrow");
     if (taskItem) {
-      console.log("task item container was clicked, task id is:" , taskItem.id);
-      // PubSub.publish("taskItemContainer.clicked", taskItem.id);
+      // console.log("task item container was clicked, task id is:" , taskItem.id);
       PubSub.publish("taskItem.editRequested", taskItem.id);
     }
     if (backArrow){
@@ -59,4 +58,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderMonthView.init(taskData.getAllTasks());
   projectModal.init();
   editTaskModal.init();
+  deleteTaskModal.init();
 });
