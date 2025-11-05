@@ -1,12 +1,13 @@
 /* styles.css */
 :root {
       --button-color: whitesmoke; 
-      --nav-button-color: whitesmoke; 
+      --nav-button-color: white; 
       --logo-color: rgb(70, 73, 65); 
       --bodytext-color: gray;
       --contentSection-color: whitesmoke;
       --header-color: whitesmoke;
       --mainContainer-color: white;
+      --viewContainer-color: white;
       
     }
 
@@ -64,12 +65,12 @@ button {
 }
 
 button:active {
-  transform: scale(0.98) translateY(-2px); /* Scale down and move up */
+  transform: scale(0.95) ; /* Scale down */
   box-shadow: 0px 2px 0px #666;
 }
 
 button:hover {
-  box-shadow: 1px -3px 21px 6px orange;
+  box-shadow: 1px -3px 21px 6px rgb(244, 181, 195);
 }
 
 .mainContainer {
@@ -131,13 +132,21 @@ nav button {
   padding: 3px 8px 3px 8px;
   border-radius: 5px 5px 0px 0px;
   box-shadow: -20px -16px 54px -10px rgba(0,0,0,0.85);
-  
-
 }
 
-nav button:active{
-  border-bottom: none;
+nav button:hover {
+  box-shadow: 0px -10px 30px 0px rgb(244, 181, 195);
 }
+
+.activeNavTab {
+  box-shadow: none;
+}
+
+.inActiveNavTab {
+  /* very subtle shadow on inactive tab ives illusion of blurry bottom tab border */
+  box-shadow: 0px 0px 21px 6px rgb(240, 236, 236) ;
+}
+
 
 /* FORM */
 
@@ -228,6 +237,7 @@ textarea {
 /* View Content Section */
 
 #viewContainer {
+  background-color: var(--viewContainer-color);
   border-radius: 0px 8px 8px 8px;
   width: 100%;
   height: 100%;

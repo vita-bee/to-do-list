@@ -16,7 +16,7 @@ export const projectData = (function() {
     PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: projectSelectMenuName}); 
   }
 
-  function getAll() {
+  function getAllProjects() {
     return [...projectArr];
   }
 
@@ -28,5 +28,5 @@ export const projectData = (function() {
     PubSub.subscribe("project.newsubmitted", addProject);
   }
 
-  return { addProject, getAll, init, loadFromStorage};
+  return { addProject, getAllProjects, init, loadFromStorage};
 })();

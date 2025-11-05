@@ -18,12 +18,12 @@ export const projectSelector = (function() {
 
     // populate on first load
     const projectSelectMenuName = "task_project_select";
-    const projectArr = projectData.getAll();
+    const projectArr = projectData.getAllProjects();
     buildProjectSelector({projectArr, projectSelectMenuName});    
   }
 
   function populateEditTaskSelectMenu (editTaskSelectMenuName){
-    const projectArr = projectData.getAll();
+    const projectArr = projectData.getAllProjects();
     buildProjectSelector({projectArr, projectSelectMenuName: editTaskSelectMenuName})
   }
 
