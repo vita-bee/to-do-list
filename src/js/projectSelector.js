@@ -12,10 +12,14 @@ export const projectSelector = (function() {
     });
     //subscribe to editTaskModalForm load in order to populate it's selector menu
     PubSub.subscribe('editTaskModalForm.loaded', populateEditTaskSelectMenu);
+    // subscribe on projectModal closed without new project submit, if so, 
+    // need to reset select value of the project select menu to 'inbox'
+    PubSub.subscribe("projectModal.closedWithoutSubmit", resetSelectValue);
+
     // populate on first load
     const projectSelectMenuName = "task_project_select";
     const projectArr = projectData.getAll();
-    buildProjectSelector({projectArr, projectSelectMenuName});
+    buildProjectSelector({projectArr, projectSelectMenuName});    
   }
 
   function populateEditTaskSelectMenu (editTaskSelectMenuName){
@@ -45,11 +49,17 @@ export const projectSelector = (function() {
   }
 
   function selectLastProject(projectSelectMenuName, projectArr) {
+    // set the menu to select the last project added  
     const select = document.getElementById(projectSelectMenuName);
     const lastProject = projectArr[projectArr.length - 1];
     if (lastProject) {
       select.value = lastProject;
     }
+  }
+
+  function resetSelectValue(){
+    const select = document.getElementById('task_project_select');
+    select.value = 'Inbox';
   }
 
   return { init };

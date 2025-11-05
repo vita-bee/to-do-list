@@ -35,10 +35,17 @@ export const projectModal = (function() {
   }
 
   function setupCloseHandlers() {
-    span.onclick = closeAddProjectModal;
+    // if add proj modal closed without new project added, 
+    // that is, closed via X or clicking outside the modal
+    // then publish this event so the project selector menu can be rebuilt
+    span.onclick = function() {
+      closeAddProjectModal();
+      PubSub.publish("projectModal.closedWithoutSubmit", {});
+    }
     overlay.onclick = function(event) {
       if (event.target === overlay) {
         closeAddProjectModal();
+        PubSub.publish("projectModal.closedWithoutSubmit", {});
       }
     };
   }
@@ -59,7 +66,7 @@ export const projectModal = (function() {
       event.target.reset();
       closeAddProjectModal();
     };
-    // Store the reference on the form dom element as a property
+    // Store the listener reference on the form dom element as a property so it can be removed later
     addProjectForm._submitListener = listener;
     // Attach the listener
     addProjectForm.addEventListener("submit", listener);
