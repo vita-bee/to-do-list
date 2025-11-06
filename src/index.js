@@ -1,6 +1,6 @@
 // src/index.js
 import "./styles.css";
-import { format, addDays } from 'date-fns';
+// import { format, addDays } from 'date-fns';
 import { PubSub } from './js/pubsub.js';
 import { localStorageHandler } from './js/localStorage.js';
 import { taskData } from './js/taskData.js'
@@ -12,10 +12,6 @@ import { projectSelector } from "./js/projectSelector.js";
 import { editTaskModal } from "./js/editTaskModal.js";
 import { deleteTaskModal } from "./js/deleteTaskModal.js";
 
-const today = new Date();
-const tomorrow = addDays(today, 1);
-console.log('Today:', format(today, 'yyyy-MM-dd'));
-console.log('Tomorrow:', format(tomorrow, 'yyyy-MM-dd'));
 
 document.addEventListener("click", handleEvent);
 document.addEventListener("submit", handleEvent);
@@ -28,7 +24,6 @@ function handleEvent(event) {
     const backArrow = event.target.matches("#backArrow");
     const forwardArrow = event.target.matches("#forwardArrow");
     if (taskItem) {
-      // console.log("task item container was clicked, task id is:" , taskItem.id);
       PubSub.publish("taskItem.editRequested", taskItem.id);
     }
     if (backArrow){

@@ -1,7 +1,6 @@
 import "../styles.css";
-import { format, addDays } from 'date-fns';
-import { PubSub } from './pubsub.js';
-// import { taskData } from './taskData.js'
+// import { format, addDays } from 'date-fns';
+// import { PubSub } from './pubsub.js';
 
 export const renderProjectView = (function() {
 
@@ -10,7 +9,6 @@ export const renderProjectView = (function() {
   }
 
   function renderProjects(projArr, taskArr) {
-    console.log("rendering project view");
     const viewContainer = document.getElementById("viewContainer");
     // Clear current view
     while (viewContainer.firstChild) {

@@ -106,11 +106,7 @@ export const renderMonthView = (function() {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDayOfMonth = new Date(year, month, 1);
     const startDay = firstDayOfMonth.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    console.log("days in month:", daysInMonth);
     const monthName = getMonthName(month);
-    console.log("current month:", monthName); 
-
-    console.log("rendering month grid");
     const viewContainer = document.getElementById("viewContainer");
     
     //first clear the current  view

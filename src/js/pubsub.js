@@ -1,4 +1,4 @@
-// PubSub Module to mediate events so both gameboard and displayController can act on same click events
+// PubSub Module to mediate events
 export const PubSub = (function() {
     const events = {};
     function subscribe(event, callback) {

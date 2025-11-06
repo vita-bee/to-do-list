@@ -33,7 +33,7 @@ export const projectData = (function() {
   function init() {
     if (projectArr.length === 0) projectArr[0] = 'Inbox';
     // pass in project array as well as the dom element selector name since there are multiple selectors
-    const selectorName = 'task_project_select' //in initiliation, this main form slector us the relevant dom element
+    const selectorName = 'task_project_select' //in initialization, this main form selector menu is the relevant dom element
     PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName});
     PubSub.subscribe("project.newsubmitted", addProject);
   }

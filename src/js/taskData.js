@@ -4,7 +4,6 @@ export const taskData = (function() {
   const taskArr = []; 
   
   function init() {
-    console.log('task handler INIT');
     PubSub.subscribe('addTaskform.submitted', addNewTask);
     PubSub.subscribe('monthView.changed', publishTasksUpdated);
     PubSub.subscribe("taskItem.editRequested", loadTaskToEditData);
@@ -30,7 +29,7 @@ export const taskData = (function() {
     if (!task) {
       console.warn('Task not found:', id);
     } else {
-      console.log('Found task:', task);
+      // console.log('Found task:', task);
       return task;
     }
   }
@@ -62,7 +61,6 @@ export const taskData = (function() {
   }
 
   function addNewTask({formData}) {
-    console.log('reached add new task function');
     const id = crypto.randomUUID(); 
     const title = formData.get('task_title');
     const dueDate = formData.get('due_date');
@@ -72,12 +70,10 @@ export const taskData = (function() {
     const is_done = false;
     const newTask = new task(id, title, dueDate, priority, project, descrip, is_done);
     taskArr.push(newTask);
-    console.log("newly created task:", taskArr[taskArr.length-1]);
     PubSub.publish('tasks.updated', [...taskArr]); // publish copy of array
   }
 
   function editTask(editedTask) {
-    console.log("editTask: Task to update task arr with:", editedTask);
     const index = taskArr.findIndex(task => task.id === editedTask.id);
     if (index !== -1) {
       taskArr[index] = editedTask;   
@@ -90,20 +86,17 @@ export const taskData = (function() {
   function markTaskDone(taskId){
     let taskIndex = taskArr.findIndex(task => task.id === taskId);
     taskArr[taskIndex].markDone;
-    console.log("task marked done is:", taskArr[taskIndex]);
     PubSub.publish('tasks.updated', [...taskArr]);
   }
 
   function deleteTask(taskId){
     let taskIndex = taskArr.findIndex(item => item.id === taskId);
-    console.log("task index to remove:", taskIndex);
     if (taskIndex !== -1) {
         taskArr.splice(taskIndex, 1); 
     }
     PubSub.publish('tasks.updated', [...taskArr]);
   }
 
-  
   
   return {init, addNewTask, deleteTask, editTask, markTaskDone, getAllTasksSorted, loadFromStorage};
 })();

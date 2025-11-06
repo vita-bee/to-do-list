@@ -131,6 +131,6 @@ function handleDeleteBtn(task) {
 }
 
 
-return {init, open: openEditTaskModal, close: closeEditTaskModal };
+return {init};
 
 })();
