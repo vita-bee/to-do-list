@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   taskData.init();
   projectData.init();
   projectSelector.init();
-  renderMonthView.init(taskData.getAllTasks());
+  renderMonthView.init(taskData.getAllTasksSorted());
   projectModal.init();
   editTaskModal.init();
   deleteTaskModal.init();
@@ -73,12 +73,12 @@ navButtons.forEach(navBtn => {
         navBtn.classList.remove('inActiveNavTab');
         navBtn.classList.add('activeNavTab');
         content.replaceChildren();
-        renderProjectView.init(projectData.getAllProjects(), taskData.getAllTasks());
+        renderProjectView.init(projectData.getAllProjects(), taskData.getAllTasksSorted());
     } else if (navBtn.textContent==="Month View") {
         navBtn.classList.remove('inActiveNavTab');
         navBtn.classList.add('activeNavTab');
         content.replaceChildren();
-        renderMonthView.init(taskData.getAllTasks());
+        renderMonthView.init(taskData.getAllTasksSorted());
     } 
   });
 });

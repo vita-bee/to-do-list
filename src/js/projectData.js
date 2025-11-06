@@ -10,13 +10,23 @@ export const projectData = (function() {
   }
 
   function addProject({ projectName, projectSelectMenuName }) {
-    projectArr.push(projectName);
-    console.log("pushed project with select menu name:", projectName, projectSelectMenuName)
-    // pass in project array as well as the dom element selector name since there are multiple selectors
-    PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: projectSelectMenuName}); 
+    // only add project if it does not already exist in array
+    if (!projectArr.includes(projectName)) {
+      projectArr.push(projectName);
+      // publish project array as well as the dom element selector name since there are multiple selectors
+      PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: projectSelectMenuName}); 
+    }
+    // to add later: need to publish for when its a duplicate project so that the select menu can be 
+    // updated to show that project name.
   }
 
   function getAllProjects() {
+    //sort project names ascending order but always keep 'Inbox' first
+    projectArr.sort((a, b) => {
+      if (a === "Inbox") return -1;  // a should come first
+      if (b === "Inbox") return 1;   // b should come first
+      return a.localeCompare(b);     // otherwise sort alphabetically
+    });
     return [...projectArr];
   }
 

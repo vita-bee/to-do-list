@@ -51,7 +51,13 @@ export const taskData = (function() {
     PubSub.publish('tasks.updated', [...taskArr]);
   }
 
-  function getAllTasks() {
+  function getAllTasksSorted() {
+    // sort task arr by date and return
+    taskArr.sort(function compare(a, b) {
+      const dateA = new Date(a.dueDate);
+      const dateB = new Date(b.dueDate);
+      return dateA - dateB;
+    });
     return [...taskArr];
   }
 
@@ -99,5 +105,5 @@ export const taskData = (function() {
 
   
   
-  return {init, addNewTask, deleteTask, editTask, markTaskDone, getAllTasks, loadFromStorage};
+  return {init, addNewTask, deleteTask, editTask, markTaskDone, getAllTasksSorted, loadFromStorage};
 })();
