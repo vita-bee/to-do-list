@@ -1,12 +1,32 @@
 import "../styles.css";
-// import { format, addDays } from 'date-fns';
-// import { PubSub } from './pubsub.js';
+import { PubSub } from './pubsub.js';
+import { projectData } from "./projectData.js";
+import { taskData } from "./taskData.js";
+import { navHandler } from "./navHandler.js";
 
 export const renderProjectView = (function() {
 
   function init(projectArr, taskArr) {
+    PubSub.subscribe('tasks.updated', handleTasksUpdated);
+    PubSub.subscribe('projects.updated', handleProjectsUpdated);
     renderProjects(projectArr, taskArr);
   }
+
+  function handleTasksUpdated(taskArr) {
+      // only re-render updates if the project view is active
+      if (navHandler.getActiveTab() === 'projectView') {
+        const projectArr = projectData.getAllProjectsSorted();
+        renderProjects(projectArr, taskArr);
+      }
+    }
+
+    function handleProjectsUpdated({projectArr, projectSelectMenuName}) {
+      // only re-render updates if the project view is active
+      if (navHandler.getActiveTab() === 'projectView') {
+        const taskArr = taskData.getAllTasksSorted();
+        renderProjects(projectArr, taskArr);
+      }
+    }
 
   function renderProjects(projArr, taskArr) {
     const viewContainer = document.getElementById("viewContainer");

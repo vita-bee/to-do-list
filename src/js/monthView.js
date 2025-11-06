@@ -1,6 +1,6 @@
 import "../styles.css";
-import { format, addDays } from 'date-fns';
 import { PubSub } from './pubsub.js';
+import { navHandler } from "./navHandler.js";
 // import { taskData } from './taskData.js'
 
 export const renderMonthView = (function() {
@@ -13,11 +13,17 @@ export const renderMonthView = (function() {
     currentMonth = now.getMonth(); // 0 = Jan, 1 = Feb, etc.
     renderMonthGrid(currentMonth, currentYear);
     renderTasks(taskArr);
-    PubSub.subscribe('tasks.updated', renderTasks);
+    PubSub.subscribe('tasks.updated', handleTasksUpdated);
     PubSub.subscribe('backArrow.clicked', renderPreviousMonth);
     PubSub.subscribe('forwardArrow.clicked', renderNextMonth);
   }
 
+  function handleTasksUpdated(taskArr) {
+    // only re-render updated tasks if the month view is active
+    if (navHandler.getActiveTab() === 'monthView') {
+      renderTasks(taskArr);
+    }
+  }
 
   function renderPreviousMonth() {
     if (currentMonth === 0) {

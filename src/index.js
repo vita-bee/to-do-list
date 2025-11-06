@@ -5,12 +5,12 @@ import { PubSub } from './js/pubsub.js';
 import { localStorageHandler } from './js/localStorage.js';
 import { taskData } from './js/taskData.js'
 import { renderMonthView } from "./js/monthView.js";
-import { renderProjectView } from "./js/renderProjectView.js";
 import { projectModal } from "./js/projectModal.js"
 import { projectData } from "./js/projectData.js";
 import { projectSelector } from "./js/projectSelector.js";
 import { editTaskModal } from "./js/editTaskModal.js";
 import { deleteTaskModal } from "./js/deleteTaskModal.js";
+import { navHandler } from "./js/navHandler.js";
 
 
 document.addEventListener("click", handleEvent);
@@ -51,29 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
   taskData.init();
   projectData.init();
   projectSelector.init();
-  renderMonthView.init(taskData.getAllTasksSorted());
+  navHandler.init();
+  renderMonthView.init(taskData.getAllTasksSorted()); //on load render the monthview
   projectModal.init();
   editTaskModal.init();
   deleteTaskModal.init();
 });
 
 
-const content = document.getElementById("viewContainer");
-const navButtons = document.querySelectorAll('.navBtn');
-navButtons.forEach(navBtn => {
-  navBtn.addEventListener('click', () => {
-    console.log(`Button "${navBtn.textContent}" was clicked!`);
-    document.querySelectorAll('.navBtn').forEach(navBtn => navBtn.classList.add('inActiveNavTab'));
-    if (navBtn.textContent==="Project View") {
-        navBtn.classList.remove('inActiveNavTab');
-        navBtn.classList.add('activeNavTab');
-        content.replaceChildren();
-        renderProjectView.init(projectData.getAllProjects(), taskData.getAllTasksSorted());
-    } else if (navBtn.textContent==="Month View") {
-        navBtn.classList.remove('inActiveNavTab');
-        navBtn.classList.add('activeNavTab');
-        content.replaceChildren();
-        renderMonthView.init(taskData.getAllTasksSorted());
-    } 
-  });
-});

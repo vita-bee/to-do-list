@@ -20,7 +20,7 @@ export const projectData = (function() {
     // updated to show that project name.
   }
 
-  function getAllProjects() {
+  function getAllProjectsSorted() {
     //sort project names ascending order but always keep 'Inbox' first
     projectArr.sort((a, b) => {
       if (a === "Inbox") return -1;  // a should come first
@@ -38,5 +38,5 @@ export const projectData = (function() {
     PubSub.subscribe("project.newsubmitted", addProject);
   }
 
-  return { addProject, getAllProjects, init, loadFromStorage};
+  return { addProject, getAllProjectsSorted, init, loadFromStorage};
 })();
