@@ -60,6 +60,11 @@ export const deleteTaskModal = (function() {
     const overlay = document.getElementById("deleteTaskOverlay");
     const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
     const deleteCancelBtn = document.getElementById("deleteCancelBtn");
+    const deleteTaskItemContainer = document.getElementById("deleteTaskItemContainer");
+    // Remove the task details / deleteTaskItemContainer from the modal
+    while (deleteTaskItemContainer.firstChild) {
+      deleteTaskItemContainer.removeChild(deleteTaskItemContainer.firstChild);
+    }
     // Remove old listeners if they exist
     if (deleteConfirmBtn._clickListener) {
       deleteConfirmBtn.removeEventListener("click", deleteConfirmBtn._clickListener);

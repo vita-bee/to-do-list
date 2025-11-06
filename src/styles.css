@@ -462,11 +462,12 @@ footer {
 
 #projectCardsContainer {
   display: grid;
-  align-content: start;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: start;
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
   row-gap: 15px;
-  column-gap: 10px;
+  column-gap: 15px;
   padding: 20px;
+  
 }
 
 #projectCardsContainer .card {
@@ -474,9 +475,12 @@ footer {
   flex-direction: column;
   background-color: #FFFFFF;
   color: gray;
-  height: 200px;
+  height: 300px;
   min-width:120px;
   max-width:150px;
+  overflow-y: auto;    /* adds vertical scroll bar when needed */
+  overflow-x: hidden;  /* hides horizon scroll */   
+  scroll-behavior: smooth;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
@@ -489,4 +493,6 @@ footer {
 }
 .card hr {
   color: gray;
+  margin-bottom: 0.25rem;
 }
+
