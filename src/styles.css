@@ -447,7 +447,7 @@ footer {
   margin-right: auto; /* pushes it to the left */
 }
 
-#deleteConfirmBtn {
+#deleteConfirmBtn, #deleteProjectConfirmBtn {
   background-color: rgb(246, 176, 176);
 }
 
@@ -459,6 +459,10 @@ footer {
   text-align: left;
   padding: 5px;
   margin: 10px;
+}
+
+#deleteProjectItemContainer {
+  color: rgb(3, 75, 184);
 }
  
 .buttonContainer {

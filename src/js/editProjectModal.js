@@ -85,7 +85,7 @@ export const editProjectModal = (function() {
     // Define new listener
     const listener = () => {
       closeEditProjectModal();
-      PubSub.publish("project.deleteRequested", {origProjectName});
+      PubSub.publish("project.deleteRequested", origProjectName);
     };
     // Store the reference on the button dome element as a property
     deleteProjectBtn._deleteListener = listener;

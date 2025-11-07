@@ -22,22 +22,13 @@ export const addProjectModal = (function() {
   }
 
   function closeAddProjectModal() {
-    // retrieving all elements locally to avoid mismatches 
-    // this should be done in case  elements and there internals may get 
-    // removed or recreated in the dom since globals might point to old versions
-    const addProjectForm = document.getElementById("addProjectForm");
-    // remove event listener on close
-    if (addProjectForm._submitListener) {
-      addProjectForm.removeEventListener("submit", addProjectForm._submitListener);
-      delete addProjectForm._submitListener;
-    }
     overlay.style.display = "none";
   }
 
   function setupCloseHandlers() {
     // if add proj modal closed without new project added, 
     // that is, closed via X or clicking outside the modal
-    // then publish this event so the project selector menu can be rebuilt
+    // then publish this event so the project selector menu can be refreshed
     span.onclick = function() {
       closeAddProjectModal();
       PubSub.publish("projectModal.closedWithoutSubmit", {});

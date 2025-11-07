@@ -59,7 +59,7 @@ export const projectSelector = (function() {
 
   function resetSelectValue(){
     const select = document.getElementById('task_project_select');
-    select.value = 'Inbox';
+    select.selectedIndex = 0;
   }
 
   return { init };

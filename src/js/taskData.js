@@ -10,7 +10,7 @@ export const taskData = (function() {
     PubSub.subscribe("taskItem.editSubmitted", editTask); 
     PubSub.subscribe("taskItem.deleteConfirmed", deleteTask);
     PubSub.subscribe('project.editSubmitted', editTaskProjectName);
-    PubSub.subscribe("project.deleteRequested", deleteAllTasksWithProject);
+    PubSub.subscribe("project.deleteConfirmed", deleteAllTasksWithProject);
   }
 
   function loadFromStorage(storedTasks) {
@@ -108,10 +108,10 @@ export const taskData = (function() {
     PubSub.publish('tasks.updated', [...taskArr]);
   }
 
-  function deleteAllTasksWithProject({ origProjectName }) {
-    // must loop in reverese to asvoide indice shifting when items get deleted
+  function deleteAllTasksWithProject(projectName) {
+    // must loop in reverse to avoid indice shifting when items get deleted
     for (let i = taskArr.length - 1; i >= 0; i--) {
-      if (taskArr[i].project === origProjectName) {
+      if (taskArr[i].project === projectName) {
         taskArr.splice(i, 1);
       }
     }

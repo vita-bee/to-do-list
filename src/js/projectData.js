@@ -11,7 +11,7 @@ export const projectData = (function() {
     PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName});
     PubSub.subscribe('project.newsubmitted', addProject);
     PubSub.subscribe('project.editSubmitted', editProject);
-    PubSub.subscribe("project.deleteRequested", deleteProject);
+    PubSub.subscribe("project.deleteConfirmed", deleteProject);
   }
 
   function loadFromStorage(storedProjects) {
@@ -20,8 +20,8 @@ export const projectData = (function() {
     projectArr.push(...storedProjects); //repopulate with array from local storage
   }
 
-  function deleteProject({origProjectName}){
-    const index = projectArr.indexOf(origProjectName);
+  function deleteProject(projectName){
+    const index = projectArr.indexOf(projectName);
     if (index !== -1) {
       projectArr.splice(index, 1);
     }

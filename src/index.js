@@ -12,6 +12,7 @@ import { editTaskModal } from "./js/editTaskModal.js";
 import { deleteTaskModal } from "./js/deleteTaskModal.js";
 import { editProjectModal } from "./js/editProjectModal.js";
 import { navHandler } from "./js/navHandler.js";
+import { deleteProjectModal } from "./js/deleteProjectModal.js";
 
 
 document.addEventListener("click", handleEvent);
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   editTaskModal.init();
   deleteTaskModal.init();
   editProjectModal.init();
+  deleteProjectModal.init();
 });
 
 
