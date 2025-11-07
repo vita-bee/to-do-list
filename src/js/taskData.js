@@ -9,6 +9,8 @@ export const taskData = (function() {
     PubSub.subscribe("taskItem.editRequested", loadTaskToEditData);
     PubSub.subscribe("taskItem.editSubmitted", editTask); 
     PubSub.subscribe("taskItem.deleteConfirmed", deleteTask);
+    PubSub.subscribe('project.editSubmitted', editTaskProjectName);
+    PubSub.subscribe("project.deleteRequested", deleteAllTasksWithProject);
   }
 
   function loadFromStorage(storedTasks) {
@@ -32,6 +34,15 @@ export const taskData = (function() {
       // console.log('Found task:', task);
       return task;
     }
+  }
+
+  function editTaskProjectName({ origProjectName, editedProjectName }){
+    taskArr.forEach((task) => {
+      if (task.project === origProjectName) {
+        task.project = editedProjectName;
+      }
+    });
+    PubSub.publish('tasks.updated', [...taskArr]);
   }
   
   function task(id, title, dueDate, priority, project, descrip, is_done) {    
@@ -93,6 +104,16 @@ export const taskData = (function() {
     let taskIndex = taskArr.findIndex(item => item.id === taskId);
     if (taskIndex !== -1) {
         taskArr.splice(taskIndex, 1); 
+    }
+    PubSub.publish('tasks.updated', [...taskArr]);
+  }
+
+  function deleteAllTasksWithProject({ origProjectName }) {
+    // must loop in reverese to asvoide indice shifting when items get deleted
+    for (let i = taskArr.length - 1; i >= 0; i--) {
+      if (taskArr[i].project === origProjectName) {
+        taskArr.splice(i, 1);
+      }
     }
     PubSub.publish('tasks.updated', [...taskArr]);
   }

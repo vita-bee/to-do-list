@@ -1,6 +1,6 @@
 import { PubSub } from './pubsub.js';
 
-export const projectModal = (function() {
+export const addProjectModal = (function() {
   let modal, span, overlay;
   
 

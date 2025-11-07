@@ -436,12 +436,12 @@ footer {
   cursor: pointer;
 }
 
-.saveTaskBtn  {
+.saveTaskBtn, .saveProjectBtn  {
   background-color: rgb(155, 185, 246);
   color: black;
 }
 
-.deleteTaskBtn {
+.deleteTaskBtn, .deleteProjectBtn {
   background-color: rgb(246, 176, 176);
   display: block;
   margin-right: auto; /* pushes it to the left */
@@ -505,3 +505,6 @@ footer {
   margin-bottom: 0.25rem;
 }
 
+.projectItemContainer{
+  cursor: pointer;
+}

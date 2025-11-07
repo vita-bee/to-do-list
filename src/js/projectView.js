@@ -41,10 +41,14 @@ export const renderProjectView = (function() {
     projArr.forEach(projectName => {
       const card = document.createElement("div");
       card.classList.add('card');
+      const projectItemContainer = document.createElement("div");
+      projectItemContainer.classList.add('projectItemContainer');
+      projectItemContainer.id = projectName;
       const h4 = document.createElement("h4");
       h4.textContent = projectName;
       const hr = document.createElement("hr");
-      card.appendChild(h4);
+      projectItemContainer.appendChild(h4);
+      card.appendChild(projectItemContainer);
       card.appendChild(hr);
 
       taskArr.forEach(task => {
