@@ -29,7 +29,7 @@ function handleEvent(event) {
     if (taskItem) {
       PubSub.publish("taskItem.editRequested", taskItem.id);
     }
-    if ((projectItem) && (!projectData.id === 'Inbox')) { //disallow edit/del of Inbox Project Name
+    if (projectItem && projectItem.id !== 'Inbox') { //disallow edit/del of Inbox Project Name
       PubSub.publish("projectItem.editRequested", {origProjectName: projectItem.id});
     }
     if (backArrow){
