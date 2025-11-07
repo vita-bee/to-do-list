@@ -38,8 +38,9 @@ export const projectData = (function() {
       sortProjectsArr();
       // publish project array as well as the dom element selector name since there are multiple selectors
       PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: projectSelectMenuName}); 
+      //publish new project added event so proj selector menu can display it as selected option
+      PubSub.publish('project.added', projectName)
     }
-    
     // to add later: need to publish for when its a duplicate project so that the select menu can be 
     // updated to show that project name.
   }

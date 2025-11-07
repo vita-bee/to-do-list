@@ -2,14 +2,18 @@ import { PubSub } from './pubsub.js';
 import { projectData } from './projectData.js';
 
 export const projectSelector = (function() {
-  
+  const mainProjSelectMenu = document.getElementById('task_project_select');
+
   function init() {
     // subscribe project updated event when new project is added
     // rebuild menu and select that last newly added project
     PubSub.subscribe('projects.updated', ({projectArr, projectSelectMenuName}) => {
       buildProjectSelector({projectArr, projectSelectMenuName});
-      selectLastProject(projectSelectMenuName, projectArr);
+      resetSelectValue();
+      //selectLastProject(projectSelectMenuName, projectArr);
     });
+    // when a new project is added, set selector menu to it
+    PubSub.subscribe('project.added', selectJustAddedProject);
     //subscribe to editTaskModalForm load in order to populate it's selector menu
     PubSub.subscribe('editTaskModalForm.loaded', populateEditTaskSelectMenu);
     // subscribe on projectModal closed without new project submit, if so, 
@@ -48,15 +52,13 @@ export const projectSelector = (function() {
     }
   }
 
-  function selectLastProject(projectSelectMenuName, projectArr) {
-    // set the menu to select the last project added  
-    const select = document.getElementById(projectSelectMenuName);
-    select.selectedIndex = select.options.length - 2;
+  function selectJustAddedProject(projectName){
+    //when a new project is just added, make it the selected option 
+    mainProjSelectMenu.value = projectName;
   }
 
   function resetSelectValue(){
-    const select = document.getElementById('task_project_select');
-    select.selectedIndex = 0;
+    mainProjSelectMenu.selectedIndex = 0;
   }
 
   return { init };
