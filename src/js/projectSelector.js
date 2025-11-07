@@ -17,7 +17,7 @@ export const projectSelector = (function() {
     //subscribe to editTaskModalForm load in order to populate it's selector menu
     PubSub.subscribe('editTaskModalForm.loaded', populateEditTaskSelectMenu);
     // subscribe on projectModal closed without new project submit, if so, 
-    // need to reset select value of the project select menu to 'inbox'
+    // need to reset select value of the project select menu to first opion in list.
     PubSub.subscribe("projectModal.closedWithoutSubmit", resetSelectValue);
 
     // populate on first load

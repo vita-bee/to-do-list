@@ -40,21 +40,26 @@ export const projectData = (function() {
       PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: projectSelectMenuName}); 
       //publish new project added event so proj selector menu can display it as selected option
       PubSub.publish('project.added', projectName)
+    } else {
+        alert("That project name already exists. Please choose a unique name.");
     }
-    // to add later: need to publish for when its a duplicate project so that the select menu can be 
-    // updated to show that project name.
   }
 
   function editProject({ origProjectName, editedProjectName }){
-    projectArr.forEach((item, index) => {
-      if (item === origProjectName) {
-        projectArr[index] = editedProjectName;
-      }
-    });
-    //re-sort array after name change
-    sortProjectsArr();
-    //publish array updated event so main proj select menu and project view can be refreshed
-    PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName}); 
+    //edit projectname as long as the name is not already taken
+    if (!projectArr.includes(editedProjectName)){
+      projectArr.forEach((item, index) => {
+        if (item === origProjectName) {
+          projectArr[index] = editedProjectName;
+        }
+      });
+      //re-sort array after name change
+      sortProjectsArr();
+      //publish array updated event so main proj select menu and project view can be refreshed
+      PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName}); 
+    } else {
+        alert("That project name already exists. Please choose a unique name.");
+    }
   }
 
   function sortProjectsArr(){

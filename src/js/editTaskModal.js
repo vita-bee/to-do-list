@@ -32,11 +32,11 @@ export const editTaskModal = (function() {
   function populateEditTaskModalForm(task){
     const editTaskform = document.getElementById("editTaskForm");
     // console.log("task to populate is", task);
-    editTaskform.querySelector('#editTask_name').value = task.title || '';
-    editTaskform.querySelector('#editTask_due_date').value = task.dueDate || '';
-    editTaskform.querySelector('#editTask_project_select').value = task.project || 'inbox';
-    editTaskform.querySelector('#editTask_priority_select').value = task.priority || 'Normal';
-    editTaskform.querySelector('#editTask_descrip').value = task.descrip || '';
+    editTaskform.querySelector('#editTask_name').value = task.title;
+    editTaskform.querySelector('#editTask_due_date').value = task.dueDate;
+    editTaskform.querySelector('#editTask_project_select').value = task.project;
+    editTaskform.querySelector('#editTask_priority_select').value = task.priority;
+    editTaskform.querySelector('#editTask_descrip').value = task.descrip;
     editTaskform.querySelector('#editTask_is_done').checked = !!task.is_done; // ensures boolean
   }
 
