@@ -51,10 +51,7 @@ export const projectSelector = (function() {
   function selectLastProject(projectSelectMenuName, projectArr) {
     // set the menu to select the last project added  
     const select = document.getElementById(projectSelectMenuName);
-    const lastProject = projectArr[projectArr.length - 1];
-    if (lastProject) {
-      select.value = lastProject;
-    }
+    select.selectedIndex = select.options.length - 2;
   }
 
   function resetSelectValue(){

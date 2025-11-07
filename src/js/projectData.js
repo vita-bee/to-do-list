@@ -34,9 +34,12 @@ export const projectData = (function() {
     // only add project if it does not already exist in array
     if (!projectArr.includes(projectName)) {
       projectArr.push(projectName);
+      //re-sort array after name change
+      sortProjectsArr();
       // publish project array as well as the dom element selector name since there are multiple selectors
       PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: projectSelectMenuName}); 
     }
+    
     // to add later: need to publish for when its a duplicate project so that the select menu can be 
     // updated to show that project name.
   }
