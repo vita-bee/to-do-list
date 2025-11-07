@@ -9,8 +9,8 @@ export const projectData = (function() {
     // pass in project array as well as the dom element selector name since there are multiple selectors
     const selectorName = 'task_project_select' //in initialization, this main form selector menu is the relevant dom element
     PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName});
-    PubSub.subscribe('project.newsubmitted', addProject);
-    PubSub.subscribe('project.editSubmitted', editProject);
+    PubSub.subscribe('project.newRequested', addProject);
+    PubSub.subscribe('project.editRequested', editProject);
     PubSub.subscribe("project.deleteConfirmed", deleteProject);
   }
 
@@ -56,7 +56,9 @@ export const projectData = (function() {
       //re-sort array after name change
       sortProjectsArr();
       //publish array updated event so main proj select menu and project view can be refreshed
-      PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName}); 
+      PubSub.publish('projects.updated', {projectArr: [...projectArr], projectSelectMenuName: selectorName});
+      //publish projects edited event taskData can update relevants tasks with new project name
+      PubSub.publish('project.edited', { origProjectName, editedProjectName }); 
     } else {
         alert("That project name already exists. Please choose a unique name.");
     }

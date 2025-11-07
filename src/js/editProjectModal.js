@@ -65,7 +65,7 @@ export const editProjectModal = (function() {
       const editedProjectName = document.getElementById("editedProject_name").value.trim();
       console.log("edited project name:", editedProjectName);
       if (!editedProjectName) return;
-      PubSub.publish("project.editSubmitted", { origProjectName, editedProjectName });
+      PubSub.publish("project.editRequested", { origProjectName, editedProjectName });
       event.target.reset();
       closeEditProjectModal();
     };

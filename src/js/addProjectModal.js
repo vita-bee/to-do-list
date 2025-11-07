@@ -53,7 +53,7 @@ export const addProjectModal = (function() {
       const projectName = document.getElementById("project_name").value.trim();
       if (!projectName) return;
       const projectSelectMenuName = "task_project_select";
-      PubSub.publish("project.newsubmitted", { projectName, projectSelectMenuName });
+      PubSub.publish("project.newRequested", { projectName, projectSelectMenuName });
       event.target.reset();
       closeAddProjectModal();
     };
