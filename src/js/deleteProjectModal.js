@@ -5,7 +5,7 @@ export const deleteProjectModal = (function() {
     
   function init() {
     modal = document.getElementById("deleteProjectModal");
-    span = document.getElementsByClassName("closeBtn")[2]; //this is 3rd modal in the html so use index [2]
+    span = document.getElementsByClassName("closeBtn")[3]; //this is 4th modal in the html so use index [3]
     overlay = document.getElementById("deleteProjectOverlay");
     if (!overlay || !modal) {
       console.error("Delete Task Modal elements not found in DOM");

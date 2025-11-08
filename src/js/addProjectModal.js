@@ -52,7 +52,6 @@ export const addProjectModal = (function() {
       event.preventDefault();
       const projectName = document.getElementById("project_name").value.trim();
       if (!projectName) return;
-      const projectSelectMenuName = "task_project_select";
       PubSub.publish("project.newRequested", projectName);
       event.target.reset();
       closeAddProjectModal();
