@@ -47,9 +47,9 @@ export const editTaskModal = (function() {
     // retrieving all elements locally to avoid mismatches 
     // this should be done in case  elements and there internals may get 
     // removed or recreated in the dom since globals might point to old versions
-    const editTaskform = document.getElementById("editTaskForm");
-    const editTaskModal = document.getElementById("editTaskModal");
-    const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn"); 
+    // const editTaskform = document.getElementById("editTaskForm");
+    // const editTaskModal = document.getElementById("editTaskModal");
+    // const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn"); 
     // // Remove old listeners if they exists
     // if (deleteTaskBtn._deleteListener) {
     //   deleteTaskBtn.removeEventListener("click", deleteTaskBtn._deleteListener);
