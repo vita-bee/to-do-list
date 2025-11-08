@@ -12,7 +12,6 @@ export const editProjectModal = (function() {
       return;
     }
     PubSub.subscribe("projectItem.editRequested", (origProjectName) => {
-        console.log("opening edit proj modal");
         openEditProjectModal(origProjectName);
         handleModalForm(origProjectName);
         handleDeleteBtn(origProjectName);
@@ -31,14 +30,22 @@ export const editProjectModal = (function() {
     // removed or recreated in the dom since globals might point to old versions
     // clear fields
     const input = document.getElementById("editedProject_name")
-    input.placholder = '';
-    input.value = '';
-    const editProjectForm = document.getElementById("editProjectForm");
-    // remove event listener on close
-    if (editProjectForm._submitListener) {
-      editProjectForm.removeEventListener("submit", editProjectForm._submitListener);
-      delete editProjectForm._submitListener;
-    }
+    // const editProjectForm = document.getElementById("editProjectForm");
+    // const editProjectModal = document.getElementById("editProjectModal");
+    // const deleteProjectBtn = editProjectModal.querySelector(".deleteProjectBtn");
+    // //clear out the project name that was displayed to be deleted
+    // input.placholder = '';
+    // input.value = '';
+    // // Remove old listeners if they exist (since new listners is created everytime the pub.sub subscribe occurs)
+    // // (since handleModalForm and handleDeleteBtn are called multiply at each subscirbe rather than only once in init)
+    // if (editProjectForm._submitListener) {
+    //   editProjectForm.removeEventListener("submit", editProjectForm._submitListener);
+    //   delete editProjectForm._submitListener;
+    // }
+    // if (deleteProjectBtn._deleteListener) {
+    //   deleteProjectBtn.removeEventListener("click", deleteProjectBtn._deleteListener);
+    //   delete deleteProjectBtn._deleteListener
+    // }
     overlay.style.display = "none";
   }
 
@@ -63,7 +70,6 @@ export const editProjectModal = (function() {
     const listener = function(event) {
       event.preventDefault();
       const editedProjectName = document.getElementById("editedProject_name").value.trim();
-      console.log("edited project name:", editedProjectName);
       if (!editedProjectName) return;
       PubSub.publish("project.editRequested", { origProjectName, editedProjectName });
       event.target.reset();

@@ -60,11 +60,6 @@ export const renderMonthView = (function() {
       const taskYear = taskDate.getFullYear();  
 
       if ((taskMonth === currentMonth) && (taskYear === currentYear)){
-        // console.log("taskDay:", taskDay);
-        // console.log("tasktitle:", task.title);
-        // console.log("taskdueDate:", task.dueDate);
-        // console.log("taskproject:", task.project);
-        // console.log("taskDescrip:", task.descrip);
         const taskDayCell = document.getElementById(taskDay);
         
         const taskItemContainer = document.createElement('div');

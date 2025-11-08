@@ -5,7 +5,6 @@ export const projectData = (function() {
 
   function init() {
     if (projectArr.length === 0) { 
-      console.log("proj array length is 0"); 
       projectArr[0] = 'Inbox';
     }
     PubSub.publish('projects.updated', [...projectArr]);

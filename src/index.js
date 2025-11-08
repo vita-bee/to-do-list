@@ -1,6 +1,5 @@
 // src/index.js
 import "./styles.css";
-// import { format, addDays } from 'date-fns';
 import { PubSub } from './js/pubsub.js';
 import { localStorageHandler } from './js/localStorage.js';
 import { taskData } from './js/taskData.js'

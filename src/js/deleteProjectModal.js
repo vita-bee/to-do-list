@@ -42,15 +42,16 @@ export const deleteProjectModal = (function() {
     while (deleteProjectItemContainer.firstChild) {
       deleteProjectItemContainer.removeChild(deleteProjectItemContainer.firstChild);
     }
-    // Remove old listeners if they exist
-    if (deleteProjectConfirmBtn._clickListener) {
-      deleteProjectConfirmBtn.removeEventListener("click", deleteProjectConfirmBtn._clickListener);
-      delete deleteProjectConfirmBtn._clickListener;
-    }
-    if (deleteProjectCancelBtn._clickListener) {
-      deleteProjectCancelBtn.removeEventListener("click", deleteProjectCancelBtn._clickListener);
-      delete deleteProjectCancelBtn._clickListener;
-    }
+    // // Remove old listeners if they exist (since new listners is created everytime the pub.sub subscribe occurs)
+    // // (since handleConfirmDeleteModal is called multiply at each subscirbe rather than only once in init)
+    // if (deleteProjectConfirmBtn._clickListener) {
+    //   deleteProjectConfirmBtn.removeEventListener("click", deleteProjectConfirmBtn._clickListener);
+    //   delete deleteProjectConfirmBtn._clickListener;
+    // }
+    // if (deleteProjectCancelBtn._clickListener) {
+    //   deleteProjectCancelBtn.removeEventListener("click", deleteProjectCancelBtn._clickListener);
+    //   delete deleteProjectCancelBtn._clickListener;
+    // }
     overlay.style.display = "none";
   }
 

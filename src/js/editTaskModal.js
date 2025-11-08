@@ -31,7 +31,6 @@ export const editTaskModal = (function() {
 
   function populateEditTaskModalForm(task){
     const editTaskform = document.getElementById("editTaskForm");
-    // console.log("task to populate is", task);
     editTaskform.querySelector('#editTask_name').value = task.title;
     editTaskform.querySelector('#editTask_due_date').value = task.dueDate;
     editTaskform.querySelector('#editTask_project_select').value = task.project;
@@ -51,15 +50,15 @@ export const editTaskModal = (function() {
     const editTaskform = document.getElementById("editTaskForm");
     const editTaskModal = document.getElementById("editTaskModal");
     const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn"); 
-    // Remove old listeners if they exists
-    if (deleteTaskBtn._deleteListener) {
-      deleteTaskBtn.removeEventListener("click", deleteTaskBtn._deleteListener);
-      delete deleteTaskBtn._deleteListener;
-    }
-    if (editTaskform._editListener) {
-      editTaskform.removeEventListener("submit", editTaskform._editListener);
-      delete editTaskform._editListener; // optional, clean up
-    }
+    // // Remove old listeners if they exists
+    // if (deleteTaskBtn._deleteListener) {
+    //   deleteTaskBtn.removeEventListener("click", deleteTaskBtn._deleteListener);
+    //   delete deleteTaskBtn._deleteListener;
+    // }
+    // if (editTaskform._editListener) {
+    //   editTaskform.removeEventListener("submit", editTaskform._editListener);
+    //   delete editTaskform._editListener; 
+    // }
       overlay.style.display = "none";
   }
 
@@ -74,7 +73,6 @@ export const editTaskModal = (function() {
 
   function handleEditTaskModalForm(origTask) {
     const editTaskform = document.getElementById("editTaskForm");
-    // console.log("handle edit task modal form: orig task:", origTask);
     // If a previous listener exists, remove it
     if (editTaskform._editListener) {
       editTaskform.removeEventListener("submit", editTaskform._editListener);
@@ -99,7 +97,6 @@ export const editTaskModal = (function() {
         descrip,
         is_done,
       };
-      // console.log("Edit Modal Form submitted. Edited task:", editedTask);
       PubSub.publish("taskItem.editSubmitted", editedTask);
       editTaskform.reset();
       closeEditTaskModal();

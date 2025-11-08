@@ -31,7 +31,6 @@ export const taskData = (function() {
     if (!task) {
       console.warn('Task not found:', id);
     } else {
-      // console.log('Found task:', task);
       return task;
     }
   }
