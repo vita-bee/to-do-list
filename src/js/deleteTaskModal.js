@@ -54,27 +54,11 @@ export const deleteTaskModal = (function() {
   }
 
   function closeDeleteTaskModal() {
-    // retrieving all elements locally to avoid mismatches 
-    // this should be done in case  elements and there internals may get 
-    // removed or recreated in the dom since globals might point to old versions
-    const overlay = document.getElementById("deleteTaskOverlay");
-    // const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
-    // const deleteCancelBtn = document.getElementById("deleteCancelBtn");
-    // const deleteTaskItemContainer = document.getElementById("deleteTaskItemContainer");
-    // // Remove the task details / deleteTaskItemContainer from the modal
-    // while (deleteTaskItemContainer.firstChild) {
-    //   deleteTaskItemContainer.removeChild(deleteTaskItemContainer.firstChild);
-    // }
-    // // Remove old listeners if they exist (since new listners is created everytime the pub.sub subscribe occurs)
-    // // (since handleConfirmDeleteModal is called multiply at each subscribe rather than only once in init)
-    // if (deleteConfirmBtn._clickListener) {
-    //   deleteConfirmBtn.removeEventListener("click", deleteConfirmBtn._clickListener);
-    //   delete deleteConfirmBtn._clickListener;
-    // }
-    // if (deleteCancelBtn._clickListener) {
-    //   deleteCancelBtn.removeEventListener("click", deleteCancelBtn._clickListener);
-    //   delete deleteCancelBtn._clickListener;
-    // }
+    const deleteTaskItemContainer = document.getElementById("deleteTaskItemContainer");
+    // Remove the task details / empty deleteTaskItemContainer from the modal
+    while (deleteTaskItemContainer.firstChild) {
+      deleteTaskItemContainer.removeChild(deleteTaskItemContainer.firstChild);
+    }
     overlay.style.display = "none";
   }
 

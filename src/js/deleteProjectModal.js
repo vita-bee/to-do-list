@@ -31,27 +31,11 @@ export const deleteProjectModal = (function() {
   }
 
   function closeDeleteProjectModal() {
-    // retrieving all elements locally to avoid mismatches 
-    // this should be done in case  elements and there internals may get 
-    // removed or recreated in the dom since globals might point to old versions
-    const overlay = document.getElementById("deleteProjectOverlay");
-    const deleteProjectConfirmBtn = document.getElementById("deleteProjectConfirmBtn");
-    const deleteProjectCancelBtn = document.getElementById("deleteProjectCancelBtn");
     const deleteProjectItemContainer = document.getElementById("deleteProjectItemContainer");
     // Remove the task details / deleteTaskItemContainer from the modal
     while (deleteProjectItemContainer.firstChild) {
       deleteProjectItemContainer.removeChild(deleteProjectItemContainer.firstChild);
     }
-    // // Remove old listeners if they exist (since new listners is created everytime the pub.sub subscribe occurs)
-    // // (since handleConfirmDeleteModal is called multiply at each subscirbe rather than only once in init)
-    // if (deleteProjectConfirmBtn._clickListener) {
-    //   deleteProjectConfirmBtn.removeEventListener("click", deleteProjectConfirmBtn._clickListener);
-    //   delete deleteProjectConfirmBtn._clickListener;
-    // }
-    // if (deleteProjectCancelBtn._clickListener) {
-    //   deleteProjectCancelBtn.removeEventListener("click", deleteProjectCancelBtn._clickListener);
-    //   delete deleteProjectCancelBtn._clickListener;
-    // }
     overlay.style.display = "none";
   }
 

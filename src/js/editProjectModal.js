@@ -25,27 +25,10 @@ export const editProjectModal = (function() {
   }
 
   function closeEditProjectModal() {
-    // retrieving all dom elements locally in fuctions to avoid mismatches 
-    // this should be done in case  elements and there internals may get 
-    // removed or recreated in the dom since globals might point to old versions
-    // clear fields
     const input = document.getElementById("editedProject_name")
-    // const editProjectForm = document.getElementById("editProjectForm");
-    // const editProjectModal = document.getElementById("editProjectModal");
-    // const deleteProjectBtn = editProjectModal.querySelector(".deleteProjectBtn");
-    // //clear out the project name that was displayed to be deleted
-    // input.placholder = '';
-    // input.value = '';
-    // // Remove old listeners if they exist (since new listners is created everytime the pub.sub subscribe occurs)
-    // // (since handleModalForm and handleDeleteBtn are called multiply at each subscirbe rather than only once in init)
-    // if (editProjectForm._submitListener) {
-    //   editProjectForm.removeEventListener("submit", editProjectForm._submitListener);
-    //   delete editProjectForm._submitListener;
-    // }
-    // if (deleteProjectBtn._deleteListener) {
-    //   deleteProjectBtn.removeEventListener("click", deleteProjectBtn._deleteListener);
-    //   delete deleteProjectBtn._deleteListener
-    // }
+    //clear out the project to be deleted info that was displayed 
+    input.placholder = '';
+    input.value = '';
     overlay.style.display = "none";
   }
 

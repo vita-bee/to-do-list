@@ -22,9 +22,9 @@ export const editTaskModal = (function() {
   }
 
   function populateProjectSelectMenu() {
-    // publish msg that edit taskmodal is loaded so projectSelector module can 
+    // publish msg that edit taskModal is loaded so projectSelector module can 
     // react and populate the proj selector menu in the editTaskModalForm
-    // pass in the dom element name for the selector
+    // pass in the dom element name for the selector so correct selector gets populated
     const editTaskSelectMenuName = 'editTask_project_select';
     PubSub.publish('editTaskModalForm.loaded', editTaskSelectMenuName);
   }
@@ -44,21 +44,6 @@ export const editTaskModal = (function() {
   }
 
   function closeEditTaskModal() {
-    // retrieving all elements locally to avoid mismatches 
-    // this should be done in case  elements and there internals may get 
-    // removed or recreated in the dom since globals might point to old versions
-    // const editTaskform = document.getElementById("editTaskForm");
-    // const editTaskModal = document.getElementById("editTaskModal");
-    // const deleteTaskBtn = editTaskModal.querySelector(".deleteTaskBtn"); 
-    // // Remove old listeners if they exists
-    // if (deleteTaskBtn._deleteListener) {
-    //   deleteTaskBtn.removeEventListener("click", deleteTaskBtn._deleteListener);
-    //   delete deleteTaskBtn._deleteListener;
-    // }
-    // if (editTaskform._editListener) {
-    //   editTaskform.removeEventListener("submit", editTaskform._editListener);
-    //   delete editTaskform._editListener; 
-    // }
       overlay.style.display = "none";
   }
 
@@ -101,8 +86,7 @@ export const editTaskModal = (function() {
       editTaskform.reset();
       closeEditTaskModal();
     };
-    // Store this listener reference so can be remove next time function is called.
-    // because extra listeners hanging around is creating bugs in code
+    // Store this listener reference so it can be removed next time function is called.
     editTaskform._editListener = listener;
     // Attach it
     editTaskform.addEventListener("submit", listener);
@@ -121,7 +105,7 @@ function handleDeleteBtn(task) {
     closeEditTaskModal();
     PubSub.publish("taskItem.deleteRequested", task);
   };
-  // Store the reference on the button dome element as a property
+  // Store the reference on the button dom element as a property
   deleteTaskBtn._deleteListener = listener;
   // Add the listener
   deleteTaskBtn.addEventListener("click", listener);
