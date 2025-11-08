@@ -92,7 +92,7 @@ header {
   display: grid;
   grid-template-columns: 80px 1fr 1fr;
   grid-template-rows: 1fr 1fr; 
-  padding: 10px 10px 0px 10px;
+  padding: 10px;
   box-shadow: rgba(45, 35, 66, 0.4) 0 0px 14px,rgba(45, 35, 66, 0.3) 0 0px 13px -3px,#D6D6E7 0 0px 0 outset;
 }
 
@@ -113,6 +113,19 @@ header .logoText{
   color: var(--logo-color);
   align-self: left;
   margin-left: -35px;
+  text-shadow: 4px 2px 2px rgba(87, 86, 86, 0.4);
+}
+
+header .byline{
+  grid-column: 2 / 3;
+  grid-row: 2/3;
+  font-family: Roboto;
+  font-size: 8px;
+  text-align: left;
+  color: var(--logo-color);
+  align-self: left;
+  margin-top: 5px;
+  margin-left: -25px;
 }
 
 nav {
