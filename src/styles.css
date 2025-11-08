@@ -2,7 +2,7 @@
 :root {
       --button-color: whitesmoke; 
       --nav-button-color: white; 
-      --logo-color: rgb(70, 73, 65); 
+      --logo-color: rgb(101, 105, 95); 
       --bodytext-color: gray;
       --contentSection-color: whitesmoke;
       --header-color: whitesmoke;
@@ -108,7 +108,7 @@ header .logoText{
   grid-column: 2 / 3;
   grid-row: 1/2;
   font-family: Roboto;
-  font-size: 16px;
+  font-size: 20px;
   text-align: left;
   color: var(--logo-color);
   align-self: left;
@@ -119,8 +119,7 @@ header .logoText{
 header .byline{
   grid-column: 2 / 3;
   grid-row: 2/3;
-  font-family: Roboto;
-  font-size: 8px;
+  font-size: 10px;
   text-align: left;
   color: var(--logo-color);
   align-self: left;
