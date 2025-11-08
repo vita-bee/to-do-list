@@ -14,10 +14,12 @@ export const projectSelector = (function() {
     });
     // when a new project is added, set selector menu option to that newly added project
     PubSub.subscribe('project.added', selectJustAddedProject);
-    // subscribe on projectModal closed without new project submit, if so, 
-    // need to reset select value of the project select menu to first option in list.
+    // when duplicate not added, reset selector menu option else it will stay on "add new" 
+    PubSub.subscribe('project.dupNotAdded', resetSelectValue)
+    // when projectModal closed by user without new project submitted, 
+    // reset selector menu option else it will stay on "add new" 
     PubSub.subscribe("projectModal.closedWithoutSubmit", resetSelectValue);
-    //subscribe to editTaskModalForm load in order to populate it's selector menu
+    //when editTaskModalForm loaded, populate it's selector menu
     PubSub.subscribe('editTaskModalForm.loaded', populateEditTaskSelectMenu);
     
     // populate main form's project select menu on first load

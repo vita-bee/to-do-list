@@ -45,6 +45,8 @@ export const projectData = (function() {
       PubSub.publish('project.added', projectName)
     } else {
         alert("That project name already exists. Please choose a unique name.");
+        // Publish no project was added if duplicate so main form select menu can be reset
+        PubSub.publish('project.dupNotAdded', {})
     }
   }
 
