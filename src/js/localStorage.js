@@ -8,16 +8,32 @@ export const localStorageHandler = (function() {
         localStorage.setItem('tasks', JSON.stringify(taskArr));
     }
 
-    function updateProjArrInLocalStorage ({projectArr}) {
+    function updateProjArrInLocalStorage (projectArr) {
         localStorage.setItem('projects', JSON.stringify(projectArr));   
     }
 
-    function loadProjsAndTasksFromLocalStorage () {
-        const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
-        taskData.loadFromStorage(storedTasks);
-        projectData.loadFromStorage(storedProjects);
+    function loadProjsAndTasksFromLocalStorage() {
+    let storedTasks = localStorage.getItem('tasks');
+    let storedProjects = localStorage.getItem('projects');
+
+    //added error catching because local storage data got corrupted somehow
+    try {
+        storedTasks = storedTasks ? JSON.parse(storedTasks) : [];
+    } catch (e) {
+        console.warn("Invalid tasks in localStorage, resetting to []");
+        storedTasks = [];
     }
+
+    try {
+        storedProjects = storedProjects ? JSON.parse(storedProjects) : [];
+    } catch (e) {
+        console.warn("Invalid projects in localStorage, resetting to []");
+        storedProjects = [];
+    }
+
+    taskData.loadFromStorage(storedTasks);
+    projectData.loadFromStorage(storedProjects);
+}
 
     function init () {
         loadProjsAndTasksFromLocalStorage();

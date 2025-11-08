@@ -2,36 +2,35 @@ import { PubSub } from './pubsub.js';
 import { projectData } from './projectData.js';
 
 export const projectSelector = (function() {
-  const mainProjSelectMenu = document.getElementById('task_project_select');
+  const mainProjSelectMenuId = "task_project_select";
+  const mainProjSelectMenuElement = document.getElementById(mainProjSelectMenuId);
 
   function init() {
-    // subscribe project updated event when new project is added
-    // rebuild menu and select that last newly added project
-    PubSub.subscribe('projects.updated', ({projectArr, projectSelectMenuName}) => {
-      buildProjectSelector({projectArr, projectSelectMenuName});
+    // subscribe to project updated event (when new project is added/deleted/edited)
+    // rebuild menu and reset to the first option in the selection menu.
+    PubSub.subscribe('projects.updated', (projectArr) => {
+      buildProjectSelector(projectArr, mainProjSelectMenuId);
       resetSelectValue();
-      //selectLastProject(projectSelectMenuName, projectArr);
     });
-    // when a new project is added, set selector menu to it
+    // when a new project is added, set selector menu option to that newly added project
     PubSub.subscribe('project.added', selectJustAddedProject);
+    // subscribe on projectModal closed without new project submit, if so, 
+    // need to reset select value of the project select menu to first option in list.
+    PubSub.subscribe("projectModal.closedWithoutSubmit", resetSelectValue);
     //subscribe to editTaskModalForm load in order to populate it's selector menu
     PubSub.subscribe('editTaskModalForm.loaded', populateEditTaskSelectMenu);
-    // subscribe on projectModal closed without new project submit, if so, 
-    // need to reset select value of the project select menu to first opion in list.
-    PubSub.subscribe("projectModal.closedWithoutSubmit", resetSelectValue);
-
-    // populate on first load
-    const projectSelectMenuName = "task_project_select";
+    
+    // populate main form's project select menu on first load
     const projectArr = projectData.getAllProjectsSorted();
-    buildProjectSelector({projectArr, projectSelectMenuName});    
+    buildProjectSelector(projectArr, mainProjSelectMenuId);    
   }
 
   function populateEditTaskSelectMenu (editTaskSelectMenuName){
     const projectArr = projectData.getAllProjectsSorted();
-    buildProjectSelector({projectArr, projectSelectMenuName: editTaskSelectMenuName})
+    buildProjectSelector(projectArr, editTaskSelectMenuName)
   }
 
-  function buildProjectSelector({projectArr, projectSelectMenuName}) {
+  function buildProjectSelector(projectArr, projectSelectMenuName) {
     const select = document.getElementById(projectSelectMenuName);
     // clear existing options
     select.innerHTML = '';
@@ -44,7 +43,7 @@ export const projectSelector = (function() {
     });
     // add the "Add new project" option at the end but only if it is the main form selector menu
     // there should be no add new project option in the editTaskModalForm
-    if (projectSelectMenuName === 'task_project_select') {
+    if (projectSelectMenuName === mainProjSelectMenuId) {
       const addNew = document.createElement('option');
       addNew.value = 'addNew';
       addNew.textContent = '➕Add new project';
@@ -53,12 +52,13 @@ export const projectSelector = (function() {
   }
 
   function selectJustAddedProject(projectName){
-    //when a new project is just added, make it the selected option 
-    mainProjSelectMenu.value = projectName;
+    // when a new project is just added, make it the selected option 
+    mainProjSelectMenuElement.value = projectName;
   }
 
   function resetSelectValue(){
-    mainProjSelectMenu.selectedIndex = 0;
+    // Set selected value on main form to first option
+    mainProjSelectMenuElement.selectedIndex = 0;
   }
 
   return { init };

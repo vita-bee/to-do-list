@@ -31,6 +31,8 @@ function handleEvent(event) {
     }
     if (projectItem && projectItem.id !== 'Inbox') { //disallow edit/del of Inbox Project Name
       PubSub.publish("projectItem.editRequested", {origProjectName: projectItem.id});
+    } else if (projectItem && projectItem.id === 'Inbox') {
+      alert("Inbox project name cannot be edited or deleted.");
     }
     if (backArrow){
       PubSub.publish("backArrow.clicked", {});

@@ -9,8 +9,8 @@ export const taskData = (function() {
     PubSub.subscribe("taskItem.editRequested", loadTaskToEditData);
     PubSub.subscribe("taskItem.editSubmitted", editTask); 
     PubSub.subscribe("taskItem.deleteConfirmed", deleteTask);
-    PubSub.subscribe('project.editSubmitted', editTaskProjectName);
-    PubSub.subscribe("project.deleteConfirmed", deleteAllTasksWithProject);
+    PubSub.subscribe('project.edited', editTaskProjectName);
+    PubSub.subscribe("project.deleted", deleteAllTasksWithProject);
   }
 
   function loadFromStorage(storedTasks) {

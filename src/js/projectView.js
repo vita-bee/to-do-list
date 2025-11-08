@@ -13,15 +13,15 @@ export const renderProjectView = (function() {
   }
 
   function handleTasksUpdated(taskArr) {
-      // only re-render updates if the project view is active
+      // only re-render updates if the project view tab is active
       if (navHandler.getActiveTab() === 'projectView') {
         const projectArr = projectData.getAllProjectsSorted();
         renderProjects(projectArr, taskArr);
       }
     }
 
-    function handleProjectsUpdated({projectArr, projectSelectMenuName}) {
-      // only re-render updates if the project view is active
+    function handleProjectsUpdated(projectArr) {
+      // only re-render updates if the project view tab is active
       if (navHandler.getActiveTab() === 'projectView') {
         const taskArr = taskData.getAllTasksSorted();
         renderProjects(projectArr, taskArr);
