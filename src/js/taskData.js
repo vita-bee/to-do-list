@@ -20,7 +20,7 @@ export const taskData = (function() {
   }
     
   // when task item is clicked, the specific tasks data needs to be made available
-  // to the edit modal. Data will be loaded via publish event which the modal subscribes to
+  // to the edit modal to be displayed. Data will be loaded via publish event which the modal subscribes to.
   function loadTaskToEditData(taskId) {
     const task = getTaskById(taskId);
     PubSub.publish('editTaskItem.dataLoaded', task );
@@ -60,14 +60,17 @@ export const taskData = (function() {
     PubSub.publish('tasks.updated', [...taskArr]);
   }
 
-  function getAllTasksSorted() {
-    // sort task arr by date and return
+  function sortTasksByDueDate() {
     taskArr.sort(function compare(a, b) {
       const dateA = new Date(a.dueDate);
       const dateB = new Date(b.dueDate);
       return dateA - dateB;
     });
-    return [...taskArr];
+  }
+
+  function getAllTasksSorted() {
+      sortTasksByDueDate();
+      return [...taskArr];
   }
 
   function addNewTask({formData}) {
@@ -80,6 +83,7 @@ export const taskData = (function() {
     const is_done = false;
     const newTask = new task(id, title, dueDate, priority, project, descrip, is_done);
     taskArr.push(newTask);
+    sortTasksByDueDate();
     PubSub.publish('tasks.updated', [...taskArr]); // publish copy of array
   }
 
@@ -87,6 +91,7 @@ export const taskData = (function() {
     const index = taskArr.findIndex(task => task.id === editedTask.id);
     if (index !== -1) {
       taskArr[index] = editedTask;   
+      sortTasksByDueDate();
       PubSub.publish('tasks.updated', [...taskArr]); 
     } else {
       console.warn(`Can't edit task. Task with id ${editedTask.id} not found`);
@@ -104,6 +109,7 @@ export const taskData = (function() {
     if (taskIndex !== -1) {
         taskArr.splice(taskIndex, 1); 
     }
+    sortTasksByDueDate();
     PubSub.publish('tasks.updated', [...taskArr]);
   }
 
@@ -114,6 +120,7 @@ export const taskData = (function() {
         taskArr.splice(i, 1);
       }
     }
+    sortTasksByDueDate();
     PubSub.publish('tasks.updated', [...taskArr]);
   }
 
