@@ -510,5 +510,55 @@ footer {
 }
 
 .projectItemContainer{
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto, 16px;
   cursor: pointer;
 }
+
+.editIcon {
+  grid-column: 2/3;
+  justify-self: right;
+  padding-right: 5px;
+  width: 16px; 
+  height: 16px;
+  background-image: url('./assets/images/edit.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;              /* hide except on hover */
+  transition: opacity 0.2s ease; /* smooth fade-in */
+}
+
+.projectItemContainer:hover .editIcon {
+  opacity: .7; /* show edit icon on hover only */
+}
+
+/* when the project container itself has class "inbox", don't show edit icon on hover */
+/* (since Inbox projectname should not be editable) */
+.projectItemContainer.inbox:hover .editIcon {
+  opacity: 0;            
+  pointer-events: none;  /* make icon non-interactive */
+}
+
+/* make the inbox container not appear clickable */
+.projectItemContainer.inbox {
+  cursor: default; /* default is no cursor*/
+}
+
+.projectItemContainer {
+  display: grid;
+  grid-template-columns: 1fr auto; /* projectname text takes available space, edit icon stays fixed */
+  align-items: center;            
+  gap: 8px;              /* space between projectname text and edit icon */
+}
+
+/* ensure long project names text wraps properly */
+.projectItemContainer h4 {
+  margin: 0;                
+  overflow-wrap: break-word; /* allow breaking long words */
+  word-break: break-word;    /* extra safety */
+  min-width: 0;              /*  for grid item to shrink instead of overflow */
+}
+  
+

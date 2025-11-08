@@ -46,8 +46,14 @@ export const renderProjectView = (function() {
       projectItemContainer.id = projectName;
       const h4 = document.createElement("h4");
       h4.textContent = projectName;
+      const editIcon = document.createElement("div");
+      editIcon.classList.add('editIcon');
       const hr = document.createElement("hr");
       projectItemContainer.appendChild(h4);
+      projectItemContainer.appendChild(editIcon);
+      if (projectName === 'Inbox'){
+        projectItemContainer.classList.add('inbox'); // since inbox should not show cursor or edit icon on hover
+      }
       card.appendChild(projectItemContainer);
       card.appendChild(hr);
 
