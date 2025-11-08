@@ -22,13 +22,17 @@ export const addProjectModal = (function() {
   }
 
   function closeAddProjectModal() {
+    // clear the form field of the modal
+    const projNameField = document.getElementById("project_name");
+    projNameField.value = '';
     overlay.style.display = "none";
   }
 
   function setupCloseHandlers() {
     // if add proj modal closed without new project added, 
     // that is, closed via X or clicking outside the modal
-    // then publish this event so the project selector menu can be refreshed
+    // publish this event so the project selector menu can be refreshed
+    // else it will show "add new" as the selected option.
     span.onclick = function() {
       closeAddProjectModal();
       PubSub.publish("projectModal.closedWithoutSubmit", {});
