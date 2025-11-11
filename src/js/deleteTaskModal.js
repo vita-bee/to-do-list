@@ -25,7 +25,8 @@ export const deleteTaskModal = (function() {
         deleteTaskItemContainer.classList.add('priorityHigh')
       } else if (task.priority === "Low"){
         deleteTaskItemContainer.classList.add('priorityLow')
-      } 
+      } else deleteTaskItemContainer.classList.add('priorityMedium')
+      
       const taskTitleP = document.createElement('p');
       taskTitleP.classList.add('taskTitle');
       taskTitleP.textContent = task.title;
@@ -59,6 +60,10 @@ export const deleteTaskModal = (function() {
     while (deleteTaskItemContainer.firstChild) {
       deleteTaskItemContainer.removeChild(deleteTaskItemContainer.firstChild);
     }
+    deleteTaskItemContainer.classList.remove('priorityHigh')
+    deleteTaskItemContainer.classList.remove('priorityLow')
+    deleteTaskItemContainer.classList.remove('priorityMedium')
+       
     overlay.style.display = "none";
   }
 
