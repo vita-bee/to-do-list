@@ -1,22 +1,20 @@
 /* styles.css */
 :root {
-      --button-color: whitesmoke; 
-      --nav-button-color: white; 
-      --logo-color: rgb(101, 105, 95); 
-      --bodytext-color: gray;
-      --contentSection-color: whitesmoke;
-      --header-color: whitesmoke;
-      --mainContainer-color: white;
-      --viewContainer-color: white;
-      
-    }
+  --button-color: whitesmoke;
+  --nav-button-color: white;
+  --logo-color: rgb(101, 105, 95);
+  --bodytext-color: gray;
+  --contentSection-color: whitesmoke;
+  --header-color: whitesmoke;
+  --mainContainer-color: white;
+  --viewContainer-color: white;
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 
 /* @font-face {
   font-family: 'logoFont';
@@ -25,8 +23,8 @@
 } */
 
 @font-face {
-  font-family: 'logoFont';
-  src: url('./assets/fonts/Lumiare.otf') format('opentype');
+  font-family: "logoFont";
+  src: url("./assets/fonts/Lumiare.otf") format("opentype");
 }
 
 hr {
@@ -34,20 +32,21 @@ hr {
   margin-bottom: 25px;
 }
 
-
 body {
   /* Improve text rendering */
   -webkit-font-smoothing: antialiased;
   /* FONT FAMILY STACK */
-  font-family: Roboto, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: Roboto, system-ui, "Segoe UI", Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
-  color: var(--bodytext-color)
+  color: var(--bodytext-color);
 }
 
-@media (min-width: 1400px) {  /* apply special width only on wide screens */
+@media (min-width: 1400px) {
+  /* apply special width only on wide screens */
   .mainContainer {
     width: 85%;
     max-width: 1200px; /* optional cap so it doesn’t stretch forever */
@@ -57,15 +56,15 @@ body {
 button {
   background-color: var(--button-color);
   color: gray;
-  opacity: 1;             
-  transition: opacity 0.3s ease;  /* smooth fade effect */
+  opacity: 1;
+  transition: opacity 0.3s ease; /* smooth fade effect */
   border: none;
   border-radius: 5px;
   padding: 5px;
 }
 
 button:active {
-  transform: scale(0.95) ; /* Scale down */
+  transform: scale(0.95); /* Scale down */
   box-shadow: 0px 2px 0px #666;
 }
 
@@ -79,21 +78,22 @@ button:hover {
   grid-template-columns: auto;
   grid-template-rows: auto auto auto; /* header row is 100px height, content streatches rest of the way */
   margin: 0 auto;
-  flex: 1;          /* stretch to take vertical length of viewport */
+  flex: 1; /* stretch to take vertical length of viewport */
   background-color: var(--mainContainer-color);
   align-content: start;
 }
 
 header {
-  grid-row: 1; 
+  grid-row: 1;
   background-color: var(--header-color);
   color: gray;
   font-size: 14px;
   display: grid;
   grid-template-columns: 80px 1fr 1fr;
-  grid-template-rows: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr;
   padding: 10px;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 0px 14px,rgba(45, 35, 66, 0.3) 0 0px 13px -3px,#D6D6E7 0 0px 0 outset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 0px 14px,
+    rgba(45, 35, 66, 0.3) 0 0px 13px -3px, #d6d6e7 0 0px 0 outset;
 }
 
 header .logoPic {
@@ -104,7 +104,7 @@ header .logoPic {
   background: url("./assets/images/checklogo.png") center/cover no-repeat;
 }
 
-header .logoText{
+header .logoText {
   grid-column: 2 / 3;
   grid-row: 1/2;
   font-family: Roboto;
@@ -116,7 +116,7 @@ header .logoText{
   text-shadow: 4px 2px 2px rgba(87, 86, 86, 0.4);
 }
 
-header .byline{
+header .byline {
   grid-column: 2 / 3;
   grid-row: 2/3;
   font-size: 10px;
@@ -143,7 +143,7 @@ nav button {
   height: 25px;
   padding: 3px 8px 3px 8px;
   border-radius: 5px 5px 0px 0px;
-  box-shadow: -20px -16px 54px -10px rgba(0,0,0,0.85);
+  box-shadow: -20px -16px 54px -10px rgba(0, 0, 0, 0.85);
 }
 
 nav button:hover {
@@ -156,28 +156,27 @@ nav button:hover {
 
 .inActiveNavTab {
   /* very subtle shadow on inactive tab ives illusion of blurry bottom tab border */
-  box-shadow: 0px 0px 21px 6px rgb(240, 236, 236) ;
+  box-shadow: 0px 0px 21px 6px rgb(240, 236, 236);
 }
-
 
 /* FORM */
 
-.formFieldsContainer{
-    font-size: 12px;
-    background-color: whitesmoke; 
-    padding: 10px; 
+.formFieldsContainer {
+  font-size: 12px;
+  background-color: whitesmoke;
+  padding: 10px;
 }
 .formGroup {
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 20px;
 }
 
 legend {
-    font-size: 12px;
-    margin-bottom: 10px;
-    text-align: left;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 .form-row {
@@ -188,17 +187,19 @@ legend {
 }
 
 .form-row label {
-    font-family: Roboto, sans-serif;
-    letter-spacing: .2em;
-    font-size: 7px;
-    font-weight: 600;
-    color: rgb(101, 101, 101);
-    text-transform: uppercase;
+  font-family: Roboto, sans-serif;
+  letter-spacing: 0.2em;
+  font-size: 7px;
+  font-weight: 600;
+  color: rgb(101, 101, 101);
+  text-transform: uppercase;
 }
 
-.form-row input, select, textarea {
-  background-color: #FFFFFF;
-  border: 1px solid #D6D9DC;
+.form-row input,
+select,
+textarea {
+  background-color: #ffffff;
+  border: 1px solid #d6d9dc;
   border-radius: 3px;
   width: 120px;
   height: 25px;
@@ -214,28 +215,30 @@ input[type="checkbox"] {
   accent-color: white; /* box background */
 }
 
-
 textarea {
   resize: none;
   height: 25px;
   width: 400px;
 }
 
-.form-row input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: rgb(23, 94, 187); 
-      box-shadow: 0 0 5px rgba(14, 14, 14, 0.5);
+.form-row input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgb(23, 94, 187);
+  box-shadow: 0 0 5px rgba(14, 14, 14, 0.5);
 }
 
-.form-row input::placeholder, textarea::placeholder {
-  color: #999; 
-  font-style: italic; 
+.form-row input::placeholder,
+textarea::placeholder {
+  color: #999;
+  font-style: italic;
   font-family: Roboto;
 }
 
-.form-row input[type='text']:invalid {
-  border: 1px solid #D55C5F;
-  color: #D55C5F;
+.form-row input[type="text"]:invalid {
+  border: 1px solid #d55c5f;
+  color: #d55c5f;
   box-shadow: none; /* Remove default red glow in Firefox */
 }
 
@@ -247,14 +250,14 @@ textarea {
 }
 
 #addTaskBtn {
-    background-color:rgb(251, 219, 225);
-    border-radius: 3px;
-    width:80px;
-    height: 20px;
-    padding: 5px 10px;
-    font-size: 10px;
-    margin-bottom: 5px;
-  }
+  background-color: rgb(251, 219, 225);
+  border-radius: 3px;
+  width: 80px;
+  height: 20px;
+  padding: 5px 10px;
+  font-size: 10px;
+  margin-bottom: 5px;
+}
 
 /* View Content Section */
 
@@ -264,7 +267,8 @@ textarea {
   width: 100%;
   height: 100%;
   padding: 10px;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 14px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 14px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
 }
 
 #monthContainer {
@@ -279,7 +283,6 @@ textarea {
   justify-content: space-between;
   padding: 3px;
   padding-bottom: 12px;
-  
 }
 
 #monthNameDiv {
@@ -289,24 +292,25 @@ textarea {
 #daysHeader {
   display: flex;
   flex-direction: row;
-  justify-content:space-around;
+  justify-content: space-around;
   padding: 3px;
   font-size: 10px;
   margin-bottom: 10px;
 }
 
-
-#forwardArrow { 
-  background: url("./assets/images/forward-arrow.svg") no-repeat center center / contain;
-  width:12px;
-  height:12px;
+#forwardArrow {
+  background: url("./assets/images/forward-arrow.svg") no-repeat center center /
+    contain;
+  width: 12px;
+  height: 12px;
   cursor: pointer;
 }
 
 #backArrow {
-  background: url("./assets/images/back-arrow.svg") no-repeat center center / contain;
-  width:12px;
-  height:12px;
+  background: url("./assets/images/back-arrow.svg") no-repeat center center /
+    contain;
+  width: 12px;
+  height: 12px;
   cursor: pointer;
 }
 
@@ -314,7 +318,7 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
-  background: #dbdada; 
+  background: #dbdada;
   gap: 1px;
   padding: 1px;
 }
@@ -339,15 +343,14 @@ p.dayNum {
   padding: 3px;
 }
 
-.dayTasksContainer{
+.dayTasksContainer {
   display: flex;
   flex-direction: column;
   gap: 3px;
   padding: 2px;
-
 }
 
-.taskItemContainer{
+.taskItemContainer {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto auto;
@@ -358,47 +361,48 @@ p.dayNum {
   margin: 2px;
   font-size: 9px;
 }
- .priorityHigh{
+.priorityHigh {
   background-color: rgb(251, 219, 225);
 }
 
- .priorityLow{
+.priorityLow {
   background-color: rgb(223, 229, 211);
 }
 
- .priorityMedium{
+.priorityMedium {
   background-color: rgb(198, 220, 246);
 }
 
-p.taskTitle{
-  grid-row: 1/2; 
-  grid-column:1/2; 
-  font-size: 8px; 
-  font-weight:500; 
-  color: black
+p.taskTitle {
+  grid-row: 1/2;
+  grid-column: 1/2;
+  font-size: 8px;
+  font-weight: 500;
+  color: black;
 }
-p.taskProjectName, p.taskDueDate {
-  grid-row: 1/2; 
-  grid-column:2/3;
-  font-size: 7px; 
-  font-style:italic; 
-  font-weight:500; 
+p.taskProjectName,
+p.taskDueDate {
+  grid-row: 1/2;
+  grid-column: 2/3;
+  font-size: 7px;
+  font-style: italic;
+  font-weight: 500;
   color: rgb(74, 5, 178);
   text-align: right;
 }
-p.taskDescrip{
-  grid-row: 2/3; 
-  grid-column:1/3;
-  font-size: 7px; 
-  color:rgb(27, 91, 130); 
-  font-weight:500;
+p.taskDescrip {
+  grid-row: 2/3;
+  grid-column: 1/3;
+  font-size: 7px;
+  color: rgb(27, 91, 130);
+  font-weight: 500;
 }
 
 .doneTask p.taskTitle,
 .doneTask p.taskProjectName,
 .doneTask p.taskDescrip {
   text-decoration: line-through;
-  color: grey; 
+  color: grey;
 }
 
 footer {
@@ -409,28 +413,28 @@ footer {
 }
 
 .overlay {
-  display: none; 
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
+  z-index: 9;
 }
 
 .modal {
-  position: relative; 
+  position: relative;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 70%; 
-  max-width: 500px; 
+  width: 70%;
+  max-width: 500px;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1; 
+  z-index: 10;
 }
 
 .modal-content {
@@ -452,18 +456,21 @@ footer {
   cursor: pointer;
 }
 
-.saveTaskBtn, .saveProjectBtn  {
+.saveTaskBtn,
+.saveProjectBtn {
   background-color: rgb(155, 185, 246);
   color: black;
 }
 
-.deleteTaskBtn, .deleteProjectBtn {
+.deleteTaskBtn,
+.deleteProjectBtn {
   background-color: rgb(246, 176, 176);
   display: block;
   margin-right: auto; /* pushes it to the left */
 }
 
-#deleteConfirmBtn, #deleteProjectConfirmBtn {
+#deleteConfirmBtn,
+#deleteProjectConfirmBtn {
   background-color: rgb(246, 176, 176);
 }
 
@@ -480,7 +487,7 @@ footer {
 #deleteProjectItemContainer {
   color: rgb(3, 75, 184);
 }
- 
+
 .buttonContainer {
   display: flex;
   justify-content: center;
@@ -496,36 +503,35 @@ footer {
   row-gap: 15px;
   column-gap: 15px;
   padding: 20px;
-  
 }
 
 #projectCardsContainer .card {
   display: flex;
   flex-direction: column;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: gray;
   height: 300px;
-  min-width:120px;
-  max-width:150px;
-  overflow-y: auto;    /* adds vertical scroll bar when needed */
-  overflow-x: hidden;  /* hides horizon scroll */   
+  min-width: 120px;
+  max-width: 150px;
+  overflow-y: auto; /* adds vertical scroll bar when needed */
+  overflow-x: hidden; /* hides horizon scroll */
   scroll-behavior: smooth;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .card h4 {
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px;
-    text-align: left;
-    
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px;
+  text-align: left;
 }
 .card hr {
   color: gray;
   margin-bottom: 0.25rem;
 }
 
-.projectItemContainer{
+.projectItemContainer {
   display: grid;
   align-items: center;
   grid-template-columns: auto, 16px;
@@ -537,26 +543,26 @@ footer {
   justify-self: right;
   align-self: self-start;
   padding-right: 8px;
-  margin-top:4px;
-  width: 16px; 
+  margin-top: 4px;
+  width: 16px;
   height: 16px;
-  background-image: url('./assets/images/edit.svg');
+  background-image: url("./assets/images/edit.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0;              /* hide except on hover */
+  opacity: 0; /* hide except on hover */
   transition: opacity 0.2s ease; /* smooth fade-in */
 }
 
 .projectItemContainer:hover .editIcon {
-  opacity: .7; /* show edit icon on hover only */
+  opacity: 0.7; /* show edit icon on hover only */
 }
 
 /* when the project container itself has class "inbox", don't show edit icon on hover */
 /* (since Inbox projectname should not be editable) */
 .projectItemContainer.inbox:hover .editIcon {
-  opacity: 0;            
-  pointer-events: none;  /* make icon non-interactive */
+  opacity: 0;
+  pointer-events: none; /* make icon non-interactive */
 }
 
 /* make the inbox container not appear clickable */
@@ -567,16 +573,14 @@ footer {
 .projectItemContainer {
   display: grid;
   grid-template-columns: 1fr auto; /* projectname text takes available space, edit icon stays fixed */
-  align-items: center;            
-  gap: 8px;              /* space between projectname text and edit icon */
+  align-items: center;
+  gap: 8px; /* space between projectname text and edit icon */
 }
 
 /* ensure long project names text wraps properly */
 .projectItemContainer h4 {
-  margin: 0;                
+  margin: 0;
   overflow-wrap: break-word; /* allow breaking long words */
-  word-break: break-word;    /* extra safety */
-  min-width: 0;              /* for grid item to shrink instead of overflow */
+  word-break: break-word; /* extra safety */
+  min-width: 0; /* for grid item to shrink instead of overflow */
 }
-  
-

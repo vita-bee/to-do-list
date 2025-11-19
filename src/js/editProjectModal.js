@@ -1,8 +1,8 @@
 import { PubSub } from "./pubsub";
 
-export const editProjectModal = (function() {
-  let modal, span, overlay; 
-  
+export const editProjectModal = (function () {
+  let modal, span, overlay;
+
   function init() {
     modal = document.getElementById("editProjectModal");
     span = document.getElementsByClassName("closeBtn")[3]; //this is 4th modal in the html so use index [3]
@@ -12,49 +12,57 @@ export const editProjectModal = (function() {
       return;
     }
     PubSub.subscribe("projectItem.editRequested", (origProjectName) => {
-        openEditProjectModal(origProjectName);
-        handleModalForm(origProjectName);
-        handleDeleteBtn(origProjectName);
+      openEditProjectModal(origProjectName);
+      handleModalForm(origProjectName);
+      handleDeleteBtn(origProjectName);
     });
     setupCloseHandlers();
   }
 
-  function openEditProjectModal({origProjectName}) {
+  function openEditProjectModal({ origProjectName }) {
     document.getElementById("editedProject_name").placeholder = origProjectName;
     overlay.style.display = "block";
   }
 
   function closeEditProjectModal() {
-    const input = document.getElementById("editedProject_name")
-    //clear out the project to be deleted info that was displayed 
-    input.placholder = '';
-    input.value = '';
+    const input = document.getElementById("editedProject_name");
+    //clear out the project to be deleted info that was displayed
+    input.placholder = "";
+    input.value = "";
     overlay.style.display = "none";
   }
 
   function setupCloseHandlers() {
-    span.onclick = function() {
+    span.onclick = function () {
       closeEditProjectModal();
-    }
-    overlay.onclick = function(event) {
+    };
+    overlay.onclick = function (event) {
       if (event.target === overlay) {
         closeEditProjectModal();
       }
-    }
+    };
   }
 
-  function handleModalForm({origProjectName}) {
+  function handleModalForm({ origProjectName }) {
     const editProjectForm = document.getElementById("editProjectForm");
     // Remove previous listener if it exists
     if (editProjectForm._submitListener) {
-      editProjectForm.removeEventListener("submit", editProjectForm._submitListener);
+      editProjectForm.removeEventListener(
+        "submit",
+        editProjectForm._submitListener
+      );
     }
     // Define the listener
-    const listener = function(event) {
+    const listener = function (event) {
       event.preventDefault();
-      const editedProjectName = document.getElementById("editedProject_name").value.trim();
+      const editedProjectName = document
+        .getElementById("editedProject_name")
+        .value.trim();
       if (!editedProjectName) return;
-      PubSub.publish("project.editRequested", { origProjectName, editedProjectName });
+      PubSub.publish("project.editRequested", {
+        origProjectName,
+        editedProjectName,
+      });
       event.target.reset();
       closeEditProjectModal();
     };
@@ -64,12 +72,16 @@ export const editProjectModal = (function() {
     editProjectForm.addEventListener("submit", listener);
   }
 
-  function handleDeleteBtn({origProjectName}) {
+  function handleDeleteBtn({ origProjectName }) {
     const editProjectModal = document.getElementById("editProjectModal");
-    const deleteProjectBtn = editProjectModal.querySelector(".deleteProjectBtn"); 
+    const deleteProjectBtn =
+      editProjectModal.querySelector(".deleteProjectBtn");
     // Remove previous listener if it exists
     if (deleteProjectBtn._deleteListener) {
-      deleteProjectBtn.removeEventListener("click", deleteProjectBtn._deleteListener);
+      deleteProjectBtn.removeEventListener(
+        "click",
+        deleteProjectBtn._deleteListener
+      );
     }
     // Define new listener
     const listener = () => {
@@ -82,6 +94,5 @@ export const editProjectModal = (function() {
     deleteProjectBtn.addEventListener("click", listener);
   }
 
-  return {init};
-
-})()
+  return { init };
+})();
