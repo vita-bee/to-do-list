@@ -1,11 +1,11 @@
-import { PubSub } from './pubsub.js';
+import { PubSub } from "./pubsub.js";
 
-export const deleteProjectModal = (function() {
+export const deleteProjectModal = (function () {
   let modal, span, overlay;
-    
+
   function init() {
     modal = document.getElementById("deleteProjectModal");
-    span = document.getElementsByClassName("closeBtn")[3]; //this is 4th modal in the html so use index [3]
+    span = document.getElementsByClassName("closeBtn")[4]; //this is 5th modal in the html so use index [4]
     overlay = document.getElementById("deleteProjectOverlay");
     if (!overlay || !modal) {
       console.error("Delete Task Modal elements not found in DOM");
@@ -19,9 +19,11 @@ export const deleteProjectModal = (function() {
     });
   }
 
-  function displayProjectDetails(projectName){
-    const deleteProjectItemContainer = document.getElementById("deleteProjectItemContainer");
-    const projectNameP = document.createElement('p');
+  function displayProjectDetails(projectName) {
+    const deleteProjectItemContainer = document.getElementById(
+      "deleteProjectItemContainer"
+    );
+    const projectNameP = document.createElement("p");
     projectNameP.textContent = projectName;
     deleteProjectItemContainer.appendChild(projectNameP);
   }
@@ -31,17 +33,21 @@ export const deleteProjectModal = (function() {
   }
 
   function closeDeleteProjectModal() {
-    const deleteProjectItemContainer = document.getElementById("deleteProjectItemContainer");
+    const deleteProjectItemContainer = document.getElementById(
+      "deleteProjectItemContainer"
+    );
     // Remove the task details / deleteTaskItemContainer from the modal
     while (deleteProjectItemContainer.firstChild) {
-      deleteProjectItemContainer.removeChild(deleteProjectItemContainer.firstChild);
+      deleteProjectItemContainer.removeChild(
+        deleteProjectItemContainer.firstChild
+      );
     }
     overlay.style.display = "none";
   }
 
   function setupCloseHandlers() {
     span.onclick = closeDeleteProjectModal;
-    overlay.onclick = function(event) {
+    overlay.onclick = function (event) {
       if (event.target === overlay) {
         closeDeleteProjectModal();
       }
@@ -49,14 +55,24 @@ export const deleteProjectModal = (function() {
   }
 
   function handleConfirmDeleteModal(projectName) {
-    const deleteProjectConfirmBtn = document.getElementById("deleteProjectConfirmBtn");
-    const deleteProjectCancelBtn = document.getElementById("deleteProjectCancelBtn");
+    const deleteProjectConfirmBtn = document.getElementById(
+      "deleteProjectConfirmBtn"
+    );
+    const deleteProjectCancelBtn = document.getElementById(
+      "deleteProjectCancelBtn"
+    );
     // Remove old listeners if they exist
     if (deleteProjectConfirmBtn._clickListener) {
-      deleteProjectConfirmBtn.removeEventListener("click", deleteProjectConfirmBtn._clickListener);
+      deleteProjectConfirmBtn.removeEventListener(
+        "click",
+        deleteProjectConfirmBtn._clickListener
+      );
     }
     if (deleteProjectCancelBtn._clickListener) {
-      deleteProjectCancelBtn.removeEventListener("click", deleteProjectCancelBtn._clickListener);
+      deleteProjectCancelBtn.removeEventListener(
+        "click",
+        deleteProjectCancelBtn._clickListener
+      );
     }
     // Define new listeners
     const confirmListener = () => {
@@ -74,7 +90,5 @@ export const deleteProjectModal = (function() {
     deleteProjectCancelBtn.addEventListener("click", cancelListener);
   }
 
-
-  return {init}
-
-})()
+  return { init };
+})();
